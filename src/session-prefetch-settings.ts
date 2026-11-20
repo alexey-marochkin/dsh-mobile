@@ -14,6 +14,12 @@ import {
 export const SESSION_PREFETCH_SETTINGS_ORDER = 130
 
 export const SESSION_PREFETCH_COPY = {
+  ru: {
+    title: "Приготовьте сессию, которую вы только что покинули.",
+    desc: "После переключения сеансов разогрейте предыдущий в фоновом режиме, чтобы переключение назад открывалось быстрее. Только чтение, максимум один сеанс на переключатель, с охлаждением за сеанс.",
+    on: "Вкл.",
+    off: "Выкл.",
+  },
   en: {
     title: 'Prefetch the session you just left',
     desc: 'After switching sessions, warm the previous one in the background so switching back opens faster. Read-only, at most one session per switch, with a per-session cooldown.',
@@ -35,7 +41,7 @@ export const SESSION_PREFETCH_COPY = {
 } as const
 
 export interface SessionPrefetchSettingsProps {
-  readonly locale: 'en' | 'zh' | 'it'
+  readonly locale: 'en' | 'zh' | 'ru' | 'it'
   /** Injected in tests; defaults to the persisted store. */
   readonly read?: () => boolean
   readonly write?: (enabled: boolean) => void

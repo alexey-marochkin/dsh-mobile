@@ -15,11 +15,20 @@
 import type { MobileAssetLoadFailure } from './mobile-custom-assets.js'
 
 /** Copy for the notice, per locale, kept beside the existing dictionaries. */
-const NOTICE_COPY: Record<'en' | 'zh' | 'it', {
+const NOTICE_COPY: Record<'en' | 'zh' | 'ru' | 'it', {
   readonly title: Record<'authentication_required' | 'gateway_required' | 'other', string>
   readonly action: string
   readonly dismiss: string
 }> = {
+  ru: {
+    title: {
+      authentication_required: "Аутентификация устройства недоступна.",
+      gateway_required: "Пользовательский мобильный CSS, скрипты и расширения нуждаются в парном входе мобильного доступа.",
+      other: "Мобильная настройка не может быть загружена.",
+    },
+    action: "Погрузка в обратном направлении",
+    dismiss: "Увольнение",
+  },
   en: {
     title: {
       authentication_required: 'Device authentication is unavailable.',

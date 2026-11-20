@@ -198,7 +198,7 @@ function parsePushEnrollment(value: Record<string, unknown>): PushEnrollment {
   const keys = ['installationId', 'subscription', 'locale', 'preferences', 'keyFingerprint', 'ownerGeneration', 'registrationGeneration']
   if (!exactKeys(value, keys) || !isRecord(value.subscription) || !exactKeys(value.subscription, ['endpoint', 'keys'])
     || !isRecord(value.subscription.keys) || !exactKeys(value.subscription.keys, ['p256dh', 'auth'])
-    || (value.locale !== 'en' && value.locale !== 'zh-CN' && value.locale !== 'it')
+    || (value.locale !== 'en' && value.locale !== 'zh-CN' && value.locale !== 'ru' && value.locale !== 'it')
     || typeof value.keyFingerprint !== 'string' || value.keyFingerprint.length === 0 || value.keyFingerprint.length > 128) {
     throw new HttpError(400, 'bad_request')
   }

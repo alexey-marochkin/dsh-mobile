@@ -40,7 +40,7 @@ function validatePayload(payload: unknown): payload is string {
     const notification = parsed.notification
     return typeof notification.title === 'string' && notification.title.length > 0
       && typeof notification.body === 'string' && notification.body.length > 0
-      && (notification.lang === 'en' || notification.lang === 'zh-CN' || notification.lang === 'it')
+      && (notification.lang === 'en' || notification.lang === 'zh-CN' || notification.lang === 'ru' || notification.lang === 'it')
       && typeof notification.navigate === 'string'
       && (notification.navigate === '/' || /^\/\?mobile-push=[A-Za-z0-9_-]{1,256}$/u.test(notification.navigate))
       && typeof notification.tag === 'string' && /^[A-Za-z0-9._:-]{1,128}$/u.test(notification.tag)

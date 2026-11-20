@@ -2,6 +2,15 @@ import type { PushCategory, PushLocale } from './contracts.js'
 import { MAX_PAYLOAD_BYTES } from './contracts.js'
 
 const messages: Readonly<Record<PushLocale, Readonly<Record<PushCategory, readonly [title: string, body: string]>>>> = {
+  ru: {
+    question: ['Требуется ответ', 'Откройте DSH, чтобы ответить.'],
+    plan: ['План на проверке', 'Откройте DSH и проверьте план.'],
+    approval: ['Запрос разрешения', 'В DSH ожидается ваше решение.'],
+    response: ['Ответ готов', 'Откройте DSH, чтобы прочитать ответ.'],
+    goal: ['Обновление цели', 'Состояние цели изменилось.'],
+    failure: ['Требуется внимание', 'Проверьте выполнение задачи в DSH.'],
+    test: ['Проверка уведомлений', 'Уведомления настроены и работают.'],
+  },
   en: {
     question: ['Input requested', 'A response needs your attention.'],
     plan: ['Plan review requested', 'A plan review needs your attention.'],

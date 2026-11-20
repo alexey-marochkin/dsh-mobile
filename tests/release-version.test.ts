@@ -28,7 +28,7 @@ function releasedFiles(): Record<string, string> {
     'apps/mobile/android/app/build.gradle.kts': `applicationId = "io.github.sayach.dshmobile"\nversionName = "${version}"\nversionCode = 76\n`,
     'apps/mobile/release.json': JSON.stringify({ version, versionCode: 76, releaseTag: `v${version}` }),
     'CHANGELOG.md': `# Changelog\n\n## ${version} - 2026-10-07\n`,
-    'README.md': `# DSH Mobile\n\n> **当前正式版本：${version}**。\n\n[App](${apkLink})\n[更新](${releaseLink})\n`,
+    'README.zh-CN.md': `# DSH Mobile\n\n> **当前正式版本：${version}**。\n\n[App](${apkLink})\n[更新](${releaseLink})\n`,
     'README.en.md': `# DSH Mobile\n\n> **Current stable release: ${version}**.\n\n[App](${apkLink})\n[Release](${releaseLink})\n`,
     'apps/mobile/README.md': `# Android App\n\nThe current stable app is **${version}**.\n\n## Changes\n\nManaged Caddy remains unavailable; other candidate work was reviewed separately.\n`,
     'apps/mobile/README.zh-CN.md': `# Android App\n\n当前正式 App 为 **${version}**。\n\n## 更新\n\n托管 Caddy 安装仍不可用；不要将候选测试说成公网验证。\n`,
@@ -70,7 +70,7 @@ describe('release version and documentation gate', () => {
     const result = await check({
       'apps/mobile/android/app/build.gradle.kts': `versionName = "${appVersion}"\nversionCode = 75\n`,
       'apps/mobile/release.json': JSON.stringify({ version: appVersion, versionCode: 75, releaseTag: `v${appVersion}` }),
-      'README.md': `当前正式版本：${version}。\n[App](${appLink})\n[更新](${releaseLink})\n`,
+      'README.zh-CN.md': `当前正式版本：${version}。\n[App](${appLink})\n[更新](${releaseLink})\n`,
       'README.en.md': `Current stable release: ${version}.\n[App](${appLink})\n[Release](${releaseLink})\n`,
       'apps/mobile/README.md': `The current stable app is ${appVersion}.\n`,
       'apps/mobile/README.zh-CN.md': `当前正式 App 为 ${appVersion}。\n`,
@@ -138,14 +138,14 @@ describe('release version and documentation gate', () => {
 
   it('accepts plain root stable labels and independently bold version numbers', async () => {
     const result = await check({
-      'README.md': `当前正式版本：${version}。\n[App](${apkLink})\n[更新](${releaseLink})\n`,
+      'README.zh-CN.md': `当前正式版本：${version}。\n[App](${apkLink})\n[更新](${releaseLink})\n`,
       'README.en.md': `Current stable release: **${version}**.\n[App](${apkLink})\n[Release](${releaseLink})\n`,
     })
     expect(result.status).toBe(0)
   })
 
   it.each([
-    ['README.md', '当前正式版本：'],
+    ['README.zh-CN.md', '当前正式版本：'],
     ['README.en.md', 'Current stable release: '],
   ])('rejects a stale root stable header in %s even when current APK and release links are present', async (file, label) => {
     const result = await check({ [file]: `> **${label}0.5.5**\n[App](${apkLink})\n[Release](${releaseLink})\n` })
@@ -181,9 +181,9 @@ describe('release version and documentation gate', () => {
     const missing = await check({ 'README.en.md': `[App](${apkLink})\n[Release](${releaseLink})\n` })
     expect(missing.status).toBe(1)
     expect(missing.output).toContain('README.en.md stable release version must appear exactly once')
-    const duplicate = await check({ 'README.md': `${releasedFiles()['README.md']}\n当前正式版本：${version}。\n` })
+    const duplicate = await check({ 'README.zh-CN.md': `${releasedFiles()['README.zh-CN.md']}\n当前正式版本：${version}。\n` })
     expect(duplicate.status).toBe(1)
-    expect(duplicate.output).toContain('README.md stable release version must appear exactly once')
+    expect(duplicate.output).toContain('README.zh-CN.md stable release version must appear exactly once')
   })
 
   it('does not mistake another release or ordinary candidate wording for the current candidate headline', async () => {
@@ -202,7 +202,7 @@ describe('release version and documentation gate', () => {
   it('keeps ordinary candidate version checking independent of unfinished release documentation', async () => {
     const result = await check({
       'CHANGELOG.md': '## Unreleased\n',
-      'README.md': `${version} 更新（待发布）\n`,
+      'README.zh-CN.md': `${version} 更新（待发布）\n`,
       'README.en.md': `${version} update (unreleased)\n`,
       'apps/mobile/README.md': `The current stable app is **0.5.5**; ${version} is an unreleased candidate.\n\n## ${version} candidate changes\n`,
       'apps/mobile/README.zh-CN.md': `当前正式 App 为 **0.5.5**；${version} 为待发布候选。\n\n## ${version} 候选更新\n`,
@@ -260,7 +260,7 @@ describe('release version and documentation gate', () => {
   })
 
   it.each([
-    ['README.md', `${version} 更新（待发布）`],
+    ['README.zh-CN.md', `${version} 更新（待发布）`],
     ['README.en.md', `${version} update (unreleased)`],
   ])('retains the root development marker rejection in %s', async (file, marker) => {
     const result = await check({ [file]: `${releasedFiles()[file]}\n${marker}\n` })

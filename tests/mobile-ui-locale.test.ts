@@ -33,12 +33,13 @@ describe('mobile UI locale persistence', () => {
     expect(f.observed()).toEqual({ target: f.root, options: { attributes: true, attributeFilter: ['lang'] } })
     f.change('IT_it')
     f.change('it-IT')
+    f.change('ru-RU')
     f.change('zh-CN')
-    expect(f.writes.map(value => value.split(';')[0])).toEqual(['dsh_ma_ui_locale=en', 'dsh_ma_ui_locale=it', 'dsh_ma_ui_locale=zh'])
+    expect(f.writes.map(value => value.split(';')[0])).toEqual(['dsh_ma_ui_locale=en', 'dsh_ma_ui_locale=it', 'dsh_ma_ui_locale=ru', 'dsh_ma_ui_locale=zh'])
     stop()
     expect(f.disconnected()).toBe(true)
     f.change('en')
-    expect(f.writes).toHaveLength(3)
+    expect(f.writes).toHaveLength(4)
   })
 
   it('preserves preference through blank language and maps unsupported DSH language to English', () => {

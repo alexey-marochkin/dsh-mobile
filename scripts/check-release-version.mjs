@@ -45,7 +45,7 @@ function compareStableVersions(left, right) {
 }
 
 async function releaseDocumentation() {
-  const selected = ['README.md', 'README.en.md', 'CHANGELOG.md', 'CONTRIBUTORS.md']
+  const selected = ['README.zh-CN.md', 'README.en.md', 'CHANGELOG.md', 'CONTRIBUTORS.md']
   async function collect(relativeDirectory) {
     let entries
     try {
@@ -148,7 +148,7 @@ async function main() {
 
     const [changelog, readme, englishReadme, englishAppReadme, chineseAppReadme] = await Promise.all([
       read('CHANGELOG.md'),
-      read('README.md'),
+      read('README.zh-CN.md'),
       read('README.en.md'),
       read('apps/mobile/README.md'),
       read('apps/mobile/README.zh-CN.md'),
@@ -171,7 +171,7 @@ async function main() {
     ]
     const appVersion = '(\\d+\\.\\d+\\.\\d+(?:-[a-z\\d]+(?:[.-][a-z\\d]+)*)?(?:\\+[a-z\\d]+(?:[.-][a-z\\d]+)*)?)'
     for (const [source, label, prefix] of [
-      [readme, 'README.md', '当前正式版本：'],
+      [readme, 'README.zh-CN.md', '当前正式版本：'],
       [englishReadme, 'README.en.md', 'Current stable release:'],
     ]) {
       const marker = developmentMarkers.find(candidate => source.includes(candidate))

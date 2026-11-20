@@ -45,7 +45,7 @@ function registration(value: unknown): boolean {
   return recipient(value) && object(value) && only(value, ['scopeId', 'deviceId', 'origin', 'installationId', 'subscription', 'locale', 'preferences', 'generation', 'keyFingerprint', 'enabled', 'health'])
     && object(value.subscription) && only(value.subscription, ['endpoint', 'keys']) && typeof value.subscription.endpoint === 'string' && value.subscription.endpoint.length > 0
     && object(value.subscription.keys) && only(value.subscription.keys, ['p256dh', 'auth']) && typeof value.subscription.keys.p256dh === 'string' && typeof value.subscription.keys.auth === 'string'
-    && (value.locale === 'en' || value.locale === 'zh-CN' || value.locale === 'it') && object(value.preferences)
+    && (value.locale === 'en' || value.locale === 'zh-CN' || value.locale === 'ru' || value.locale === 'it') && object(value.preferences)
     && only(value.preferences, ['question', 'plan', 'approval', 'response', 'goal', 'failure']) && ['question', 'plan', 'approval', 'response', 'goal', 'failure'].every(k => typeof (value.preferences as Record<string, unknown>)[k] === 'boolean')
     && Number.isSafeInteger(value.generation) && Number(value.generation) > 0 && typeof value.keyFingerprint === 'string' && typeof value.enabled === 'boolean'
     && ['ready', 'suspended', 'repair-required'].includes(String(value.health))

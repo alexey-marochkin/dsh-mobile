@@ -1,6 +1,6 @@
 # 回环隧道接入（配合自己的 frp stcp）
 
-[English](LOOPBACK_TUNNEL.en.md) · [返回远程访问说明](../README.md#远程访问)
+[English](LOOPBACK_TUNNEL.en.md) · [返回远程访问说明](../README.zh-CN.md#远程访问)
 
 > 插件 0.8.12 起在 **移动访问 → 局域网** 增加 **回环隧道接入** 开关，默认关闭。它不新增远程通道、不安装也不管理 frp，不要求升级 Android App；关闭时行为与之前完全一致。
 

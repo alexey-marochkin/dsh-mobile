@@ -14,6 +14,12 @@ import {
 export const COMPOSER_COLLAPSE_SETTINGS_ORDER = 15
 
 export const COMPOSER_COLLAPSE_COPY = {
+  ru: {
+    title: "Режим чтения: коллапс композитора",
+    desc: "Разрушьте редактора композитора, прокручивая длинный разговор; нажмите на него, сфокусируйте его или прокрутите обратно, чтобы восстановить. Он никогда не разрушается, пока присутствует черновик или бегущий ответ.",
+    on: "Вкл.",
+    off: "Выкл.",
+  },
   en: {
     title: 'Reading mode: collapse composer',
     desc: 'Collapse the composer editor while scrolling down a long conversation; tap it, focus it, or scroll back up to restore. It never collapses while a draft or a running reply is present.',
@@ -35,7 +41,7 @@ export const COMPOSER_COLLAPSE_COPY = {
 } as const
 
 export interface ComposerCollapseSettingsProps {
-  readonly locale: 'en' | 'zh' | 'it'
+  readonly locale: 'en' | 'zh' | 'ru' | 'it'
   /** Injected in tests; defaults to the persisted store. */
   readonly read?: () => boolean
   readonly write?: (enabled: boolean) => void

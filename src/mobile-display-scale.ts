@@ -104,6 +104,7 @@ export class MobileDisplayScaleController {
 
 const messages = {
   zh: { title: '页面缩放', description: '调整整个页面的显示大小，仅保存在当前 App 中，与字号设置独立。', reset: '恢复 100%', loading: '读取中…', busy: '正在调整…', error: '无法调整页面缩放，请重试。', retry: '重试' },
+  ru: { title: "Увеличить страницу", description: "Изменить размер всей страницы.Сохранено в этом приложении, отдельно от размера шрифта.", reset: "Сброс до 100%", loading: "Загрузка...", busy: "Применять...", error: "Не могу изменить масштаб страницы.", retry: "Повторить" },
   en: { title: 'Page zoom', description: 'Resize the whole page. Saved in this App, separately from font size.', reset: 'Reset to 100%', loading: 'Loading…', busy: 'Applying…', error: 'Could not change page zoom. Try again.', retry: 'Retry' },
   it: { title: 'Zoom pagina', description: 'Ridimensiona tutta la pagina. Salvato in questa app, separatamente dalla dimensione del testo.', reset: 'Ripristina 100%', loading: 'Caricamento…', busy: 'Applicazione…', error: 'Impossibile modificare lo zoom. Riprova.', retry: 'Riprova' },
 } as const

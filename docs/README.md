@@ -1,13 +1,13 @@
 # 使用指南 / Documentation
 
-第一次使用请先看[快速开始](../README.md#快速开始)和[局域网／远程连接教程](../README.md#连接教程)。这里收录需要进一步配置或排障的专题；不必为了完成首次配对读完所有页面。
+第一次使用请先看[快速开始](../README.zh-CN.md#快速开始)和[局域网／远程连接教程](../README.zh-CN.md#连接教程)。这里收录需要进一步配置或排障的专题；不必为了完成首次配对读完所有页面。
 
 ## 已发布功能 / Released features
 
 | 你想做什么 | 中文 | English |
 | --- | --- | --- |
 | 使用 Android App、了解返回键、权限与升级 | [App 手册](../apps/mobile/README.zh-CN.md) | [Android app](../apps/mobile/README.md) |
-| 用 iPhone/iPad 的 Safari 配对、添加到主屏幕（PWA） | [iPhone/iPad 入门](<../README.md#iphone-与-ipad主屏幕-web-apppwa>) | [iPhone/iPad quick start](<../README.en.md#iphone-and-ipad-home-screen-web-app-pwa>) |
+| 用 iPhone/iPad 的 Safari 配对、添加到主屏幕（PWA） | [iPhone/iPad 入门](<../README.zh-CN.md#iphone-与-ipad主屏幕-web-apppwa>) | [iPhone/iPad quick start](<../README.en.md#iphone-and-ipad-home-screen-web-app-pwa>) |
 | 在 iPhone/iPad 主屏幕 App 开启六类网页推送通知（0.8.0 起） | [网页推送](WEB_PUSH.md) | [Web Push](WEB_PUSH.en.md) |
 | 使用固定 Cloudflare 域名，而非临时随机地址 | [命名隧道](CLOUDFLARE_TUNNEL.md) | [Named tunnel](CLOUDFLARE_TUNNEL.en.md) |
 | 请求 cpolar 账号已预留的固定子域名（0.6.7 起） | [固定子域名](CPOLAR_SUBDOMAIN.md) | [Reserved subdomain](CPOLAR_SUBDOMAIN.en.md) |
@@ -64,5 +64,5 @@
 
 | 记录 | 范围 |
 | --- | --- |
-| [DSH 0.1.5 局域网验证](DSH_0.1.5_LAN.md) | 0.3.15 的历史实测；当前组合见[兼容性](../README.md#兼容性) |
+| [DSH 0.1.5 局域网验证](DSH_0.1.5_LAN.md) | 0.3.15 的历史实测；当前组合见[兼容性](../README.zh-CN.md#兼容性) |
 | [FRP 维护交接](https://github.com/saya-ch/dsh-mobile/blob/main/docs/HANDOFF_SELF_HOSTED_FRP.md) | 0.4.6 开发时的代码地图与历史证据，仅在仓库阅读，不随 npm 包发布 |

@@ -162,11 +162,11 @@ describe('browser pairing input and recovery feedback', () => {
     expect(form.button.disabled).toBe(false)
   })
 
-  it.each<AuthPageLocale>(['zh', 'en', 'it'])('localizes app-key guidance in %s', async locale => {
+  it.each<AuthPageLocale>(['zh', 'en', 'it', 'ru'])('localizes app-key guidance in %s', async locale => {
     const form = pairingForm(locale)
     form.token.value = 'dsh1.invalid'
     await form.submit()
-    const expected = { zh: 'Android App 密钥', en: 'Android app key', it: 'chiave per l’app Android' }
+    const expected = { ru: 'ключ приложения для Android', zh: 'Android App 密钥', en: 'Android app key', it: 'chiave per l’app Android' }
     expect(form.status.value).toContain(expected[locale])
     expect(form.requests).toEqual([])
   })

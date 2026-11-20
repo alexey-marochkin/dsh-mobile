@@ -1,3 +1,5 @@
+[Русский](README.md) · [简体中文](README.zh-CN.md)
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/saya-ch/dsh-mobile/main/assets/brand/repository-hero.png?v=0bfc8f909993" alt="Use DeepSeek Harness from a phone" width="100%">
 </p>
@@ -29,7 +31,7 @@
   <a href="docs/README.md">Documentation</a> ·
   <a href="#contributors">Contributors</a> ·
   <a href="https://github.com/saya-ch/dsh-mobile/releases/tag/v0.8.13">Release notes</a> ·
-  <a href="README.md">简体中文</a>
+  <a href="README.zh-CN.md">简体中文</a>
 </p>
 
 > DSH Mobile is a DeepSeek Harness community plugin. The native app currently ships for Android; the repository also contains an **unpublished** [portable Windows client](apps/windows/README.md) (merged into main, not part of any release yet and not accepted on real Windows, so it is not a supported platform).

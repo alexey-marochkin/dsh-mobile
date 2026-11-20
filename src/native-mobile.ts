@@ -131,6 +131,7 @@ export const NATIVE_MOBILE_STYLES = `
   [data-dsh-mobile-header] [class*="_sessionLogButton"] > * { display:none !important; }
   [data-dsh-mobile-header] [class*="_sessionLogButton"]::after { color:var(--dsw-alias-label-primary, #171a21); content:"Log"; font-size:11px; font-weight:600; }
   html[data-dsh-mobile-language="zh"] [data-dsh-mobile-header] [class*="_sessionLogButton"]::after { content:"日志"; }
+  html[data-dsh-mobile-language="ru"] [data-dsh-mobile-header] [class*="_sessionLogButton"]::after { content:"Журнал"; }
   [data-dsh-mobile-header] [class*="_tabs"] { box-sizing:border-box !important; width:max-content !important; max-width:calc(100% - 58px) !important; min-height:28px !important; height:28px !important; margin-top:0 !important; padding-left:6px !important; padding-right:6px !important; overflow-x:auto; scrollbar-width:none; }
   [data-dsh-mobile-header] [class*="_tab"] { padding-bottom:5px !important; }
   [data-dsh-mobile-header] [class*="_tabs"]::-webkit-scrollbar { display:none; }
@@ -495,7 +496,7 @@ export function createHeaderStripPanController(options: {
   }
 }
 
-export type NativeMobileLanguage = 'it' | 'en' | 'zh'
+export type NativeMobileLanguage = 'ru' | 'it' | 'en' | 'zh'
 
 interface FileDropTarget { dispatchEvent(event: Event): boolean }
 
@@ -586,7 +587,7 @@ export function resolveNativeMobileLanguage(
 ): NativeMobileLanguage {
   return [documentLanguage, ...browserLanguages]
     .map(value => value.trim().toLowerCase().split(/[-_]/u)[0])
-    .find((value): value is NativeMobileLanguage => value === 'it' || value === 'en' || value === 'zh') ?? 'en'
+    .find((value): value is NativeMobileLanguage => value === 'ru' || value === 'it' || value === 'en' || value === 'zh') ?? 'en'
 }
 
 /** Whether a user-driven scroll moved upward into the automatic history-loading zone. */
@@ -1283,7 +1284,7 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
   const browserLanguages = navigator.languages.length > 0 ? navigator.languages : [navigator.language]
   const language = resolveNativeMobileLanguage(document.documentElement.lang, browserLanguages)
   const restoreLanguageMarker = applyNativeMobileLanguageMarker(document.documentElement, language)
-  const label = (italian: string, english: string, chinese: string): string => language === 'it' ? italian : language === 'zh' ? chinese : english
+  const label = (italian: string, english: string, chinese: string, russian: string): string => language === 'ru' ? russian : language === 'it' ? italian : language === 'zh' ? chinese : english
   const mediaIcon = (): SVGSVGElement => {
     const namespace = 'http://www.w3.org/2000/svg'
     const icon = document.createElementNS(namespace, 'svg')
@@ -1397,7 +1398,7 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
   backdrop.className = 'dsh-native-mobile-backdrop'
   backdrop.lang = language
   backdrop.hidden = true
-  backdrop.setAttribute('aria-label', label('Chiudi navigazione area di lavoro', 'Close workspace navigation', '关闭工作区导航'))
+  backdrop.setAttribute('aria-label', label('Chiudi navigazione area di lavoro', 'Close workspace navigation', '关闭工作区导航', "Закрыть навигацию по рабочему пространству"))
   document.body.append(backdrop)
   const branchToast = document.createElement('div')
   branchToast.className = 'dsh-mobile-branch-toast'
@@ -1411,9 +1412,9 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
   mediaToast.setAttribute('role', 'status')
   mediaToast.setAttribute('aria-live', 'polite')
   document.body.append(mediaToast)
-  const cameraButton = createMediaAction(label('Scatta foto', 'Take photo', '拍照'))
+  const cameraButton = createMediaAction(label('Scatta foto', 'Take photo', '拍照', "Сделать снимок"))
   cameraButton.disabled = true
-  const galleryButton = createMediaAction(label('Galleria', 'Gallery', '相册'), 'gallery')
+  const galleryButton = createMediaAction(label('Galleria', 'Gallery', '相册', "Галерея"), 'gallery')
   galleryButton.disabled = true
   let galleryBusy = false
   let branchToastTimer = 0
@@ -1431,8 +1432,8 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
     document,
     isTouchPrimary: () => window.matchMedia(PATH_COPY_TOUCH_QUERY).matches,
     labels: {
-      copied: label('Copiato: {path}', 'Copied: {path}', '已复制：{path}'),
-      failed: label('Impossibile copiare il percorso.', 'Could not copy the path.', '无法复制路径。'),
+      copied: label('Copiato: {path}', 'Copied: {path}', '已复制：{path}', "Скопировано: {path}"),
+      failed: label('Impossibile copiare il percorso.', 'Could not copy the path.', '无法复制路径。', "Не удалось скопировать путь."),
     },
   })
   let mediaRequestGeneration = 0
@@ -1492,20 +1493,20 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
   }
   const deliverImages = (files: readonly File[], context: ReturnType<typeof mediaRequestContext>): void => {
     if (files.length === 0 || !mediaRequestIsCurrent(context)) return
-    if (!dispatchComposerImageDrop(document, files)) showMediaToast(label('Allegati immagine non disponibili', 'Image attachments are unavailable', '图片附件不可用'))
+    if (!dispatchComposerImageDrop(document, files)) showMediaToast(label('Allegati immagine non disponibili', 'Image attachments are unavailable', '图片附件不可用', "Сейчас нельзя прикрепить изображение"))
   }
   const launchBrowserCamera = (context: ReturnType<typeof mediaRequestContext>): void => {
     void pickBrowserFiles({ accept: 'image/*', capture: 'environment', signal: mediaPickerAbortController.signal }).then(files => {
       if (files !== undefined) deliverImages(files, context)
     }).catch((_error: unknown) => {
-      if (mediaRequestIsCurrent(context)) showMediaToast(label('Impossibile aggiungere la foto', 'Could not attach the photo', '无法附加照片'))
+      if (mediaRequestIsCurrent(context)) showMediaToast(label('Impossibile aggiungere la foto', 'Could not attach the photo', '无法附加照片', "Не удалось прикрепить фото"))
     })
   }
   const dismissCommandMenu = (): void => {
     const trigger = boundComposer?.querySelector<HTMLButtonElement>('button[aria-haspopup="listbox"][aria-expanded="true"]')
     trigger?.click()
   }
-  const addGroupLabel = label('Aggiungi', 'Add', '添加')
+  const addGroupLabel = label('Aggiungi', 'Add', '添加', "Добавить")
   const placeCameraAction = (commandMenu: HTMLElement): boolean => {
     const sectionTitle = Array.from(commandMenu.querySelectorAll<HTMLElement>('[role="listbox"] [role="presentation"]'))
       .find(candidate => !candidate.hasAttribute('data-source') && candidate.textContent?.trim() === addGroupLabel)
@@ -1560,7 +1561,7 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
     if (cameraButton.title !== title) cameraButton.title = title
     const galleryDisabled = disabled || galleryBusy
     if (galleryButton.disabled !== galleryDisabled) galleryButton.disabled = galleryDisabled
-    const galleryTitle = disabled ? title : label('Scegli immagini da allegare', 'Choose images to attach', '选择图片并附加到当前消息')
+    const galleryTitle = disabled ? title : label('Scegli immagini da allegare', 'Choose images to attach', '选择图片并附加到当前消息', "Выбрать изображения")
     if (galleryButton.title !== galleryTitle) galleryButton.title = galleryTitle
   }
   const quietMediaPointer = (event: PointerEvent): void => {
@@ -1571,7 +1572,7 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
   }
   const takePhoto = (): void => {
     if (!canAcceptComposerDrop()) {
-      setCameraActionDisabled(true, label('Allegati immagine non disponibili', 'Image attachments are unavailable', '图片附件不可用'))
+      setCameraActionDisabled(true, label('Allegati immagine non disponibili', 'Image attachments are unavailable', '图片附件不可用', "Сейчас нельзя прикрепить изображение"))
       dismissCommandMenu()
       return
     }
@@ -1585,20 +1586,20 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
     void Promise.resolve().then(() => bridge.invoke('camera.capture', {})).then(value => {
       if (!mediaRequestIsCurrent(context)) return
       if (value instanceof File) deliverImages([value], context)
-      else showMediaToast(label('La foto scattata non è utilizzabile', 'The captured photo is unavailable', '所拍照片不可用'))
+      else showMediaToast(label('La foto scattata non è utilizzabile', 'The captured photo is unavailable', '所拍照片不可用', "Захваченная фотография недоступна"))
     }).catch((error: unknown) => {
       if (!mediaRequestIsCurrent(context)) return
       const code = typeof error === 'object' && error !== null && 'code' in error ? String(error.code) : ''
       if (code === 'cancelled') return
       showMediaToast(code === 'payload_too_large'
-        ? label('La foto supera il limite di 8 MiB', 'The photo exceeds the 8 MiB limit', '照片超过 8 MiB 限制')
-        : label('Impossibile aggiungere la foto', 'Could not attach the photo', '无法附加照片'))
+        ? label('La foto supera il limite di 8 MiB', 'The photo exceeds the 8 MiB limit', '照片超过 8 MiB 限制', "Фотография превышает лимит в 8 МБ")
+        : label('Impossibile aggiungere la foto', 'Could not attach the photo', '无法附加照片', "Не удалось прикрепить фото"))
     })
   }
   const chooseGallery = (): void => {
     if (disposed || galleryBusy || galleryButton.disabled || boundComposer?.closest('.dshm-main') == null) return
     if (!canAcceptComposerDrop()) {
-      setCameraActionDisabled(true, label('Allegati immagine non disponibili', 'Image attachments are unavailable', '图片附件不可用'))
+      setCameraActionDisabled(true, label('Allegati immagine non disponibili', 'Image attachments are unavailable', '图片附件不可用', "Сейчас нельзя прикрепить изображение"))
       dismissCommandMenu()
       return
     }
@@ -1610,7 +1611,7 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
     void pickBrowserFiles({ accept: 'image/*', multiple: true, signal: mediaPickerAbortController.signal }).then(files => {
       if (files !== undefined) deliverImages(files, context)
     }).catch((_error: unknown) => {
-      if (mediaRequestIsCurrent(context)) showMediaToast(label('Impossibile aggiungere le immagini', 'Could not attach the images', '无法附加图片'))
+      if (mediaRequestIsCurrent(context)) showMediaToast(label('Impossibile aggiungere le immagini', 'Could not attach the images', '无法附加图片', "Не удалось прикрепить изображения"))
     }).finally(() => {
       galleryBusy = false
       galleryButton.removeAttribute('aria-busy')
@@ -1624,7 +1625,7 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
   const showBranchToast = (): void => {
     const header = document.querySelector<HTMLElement>('[data-dsh-mobile-header]')
     const title = header === null ? undefined : header.querySelector<HTMLElement>('[class*="_crumbCurrent"]')?.textContent?.trim()
-    const prefix = label('Ramo corrente', 'Current branch', '当前分支')
+    const prefix = label('Ramo corrente', 'Current branch', '当前分支', "Текущая ветка")
     branchToast.textContent = title === undefined ? prefix : `${prefix}: ${title}`
     branchToast.dataset.visible = 'true'
     if (branchToastTimer !== 0) window.clearTimeout(branchToastTimer)
@@ -1891,7 +1892,7 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
       bindHistoryScroller(undefined, null)
       bindHistoryLoader(undefined)
       syncMediaBinding(null)
-      setCameraActionDisabled(true, label('Apri prima una sessione', 'Open a session first', '请先打开会话'))
+      setCameraActionDisabled(true, label('Apri prima una sessione', 'Open a session first', '请先打开会话', "Откройте первую сессию"))
       cameraButton.remove()
       galleryButton.remove()
       return
@@ -1939,7 +1940,7 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
       if (!(composerRow instanceof HTMLElement)) {
         syncComposerEnterNewline(null)
         syncMediaBinding(null)
-        setCameraActionDisabled(true, label('Apri prima una sessione', 'Open a session first', '请先打开会话'))
+        setCameraActionDisabled(true, label('Apri prima una sessione', 'Open a session first', '请先打开会话', "Откройте первую сессию"))
         cameraButton.remove()
         galleryButton.remove()
       }
@@ -1961,12 +1962,12 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
           const attachmentBlocked = !canAcceptComposerDrop()
           const mediaDisabled = conversation === null || currentSessionOrigin().sessionId === null || composerBusy || attachmentBlocked
           const mediaTitle = composerBusy
-            ? label('Attendi il completamento della risposta', 'Wait for the response to finish', '请等待回复完成')
+            ? label('Attendi il completamento della risposta', 'Wait for the response to finish', '请等待回复完成', "Дождитесь ответа, чтобы закончить")
             : attachmentBlocked
-              ? label('Allegati immagine non disponibili', 'Image attachments are unavailable', '图片附件不可用')
+              ? label('Allegati immagine non disponibili', 'Image attachments are unavailable', '图片附件不可用', "Сейчас нельзя прикрепить изображение")
               : mediaDisabled
-                ? label('Apri prima una sessione', 'Open a session first', '请先打开会话')
-                : label('Scatta una foto e allegala', 'Take a photo and attach it', '拍照并附加到当前消息')
+                ? label('Apri prima una sessione', 'Open a session first', '请先打开会话', "Откройте первую сессию")
+                : label('Scatta una foto e allegala', 'Take a photo and attach it', '拍照并附加到当前消息', "Сделайте фото и прикрепите его")
           setCameraActionDisabled(mediaDisabled, mediaTitle)
           const commandMenu = composerCard?.querySelector<HTMLElement>('[data-trigger-menu]') ?? null
           if (commandMenu !== null) placeCameraAction(commandMenu)
@@ -2051,14 +2052,14 @@ export function installNativeMobileSurface(backServices: NativeMobileBackService
     completionFallback: false,
     label: (kind: TaskNotifyKind, sessionLabel: string) => kind === 'done'
       ? {
-          title: label('Attività completata', 'Task finished', '任务已完成'),
+          title: label('Attività completata', 'Task finished', '任务已完成', "Задание завершено"),
           body: sessionLabel === ''
-            ? label('Il tuo task DSH è terminato', 'Your DSH task finished', '你的 DSH 任务已完成')
-            : label(`Il tuo task DSH è terminato: ${sessionLabel}`, `Your DSH task finished: ${sessionLabel}`, `你的 DSH 任务已完成：${sessionLabel}`),
+            ? label('Il tuo task DSH è terminato', 'Your DSH task finished', '你的 DSH 任务已完成', "Задание DSH завершено")
+            : label(`Il tuo task DSH è terminato: ${sessionLabel}`, `Your DSH task finished: ${sessionLabel}`, `你的 DSH 任务已完成：${sessionLabel}`, `Задача DSH завершена: ${sessionLabel}`),
         }
       : {
-          title: label('È richiesto un input', 'Input needed', '需要你确认'),
-          body: label('DSH attende una tua scelta', 'DSH waits for your choice', 'DSH 等待你的选择'),
+          title: label('È richiesto un input', 'Input needed', '需要你确认', "Требуется ответ"),
+          body: label('DSH attende una tua scelta', 'DSH waits for your choice', 'DSH 等待你的选择', "DSH ожидает вашего решения"),
         },
   })
   return () => {

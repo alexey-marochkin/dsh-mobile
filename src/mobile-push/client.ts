@@ -304,6 +304,6 @@ export function browserPushEnvironment(view: Window = window): MobilePushEnviron
     get standalone() { return isInstalled() },
     get permission() { return 'Notification' in view ? (view as Window & { readonly Notification: typeof Notification }).Notification.permission : 'unsupported' },
     pushManager, storage, origin: view.location.origin, randomUUID: () => view.crypto.randomUUID(),
-    locale: view.document.documentElement.lang.toLowerCase().startsWith('zh') ? 'zh-CN' : view.document.documentElement.lang.toLowerCase().startsWith('it') ? 'it' : 'en',
+    locale: view.document.documentElement.lang.toLowerCase().startsWith('zh') ? 'zh-CN' : view.document.documentElement.lang.toLowerCase().split('-')[0] === 'ru' ? 'ru' : view.document.documentElement.lang.toLowerCase().startsWith('it') ? 'it' : 'en',
   }
 }

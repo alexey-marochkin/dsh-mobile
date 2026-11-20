@@ -6,7 +6,7 @@
 
 ## 在 iPhone 和 iPad 上使用 DSH Mobile
 
-DSH Mobile 插件运行在**电脑**上。iPhone/iPad 用户用 **Safari** 打开专用的移动访问页面，与电脑配对后，可将页面添加到主屏幕作为 Web App（PWA）使用，无需下载原生 iOS App。先按[连接教程](<../README.md#连接教程>)完成连接；无需开启通知也能使用 DSH 会话和工作区。
+DSH Mobile 插件运行在**电脑**上。iPhone/iPad 用户用 **Safari** 打开专用的移动访问页面，与电脑配对后，可将页面添加到主屏幕作为 Web App（PWA）使用，无需下载原生 iOS App。先按[连接教程](<../README.zh-CN.md#连接教程>)完成连接；无需开启通知也能使用 DSH 会话和工作区。
 
 添加到主屏幕不代表可以离线使用 DSH：电脑、DSH 和 Mobile Gateway 须保持运行，手机使用时也须能连接网关。下文 **18.4+ 的目标环境仅针对可选的网页推送**，不代表普通浏览器访问的最低版本；浏览器兼容性仍取决于 DSH 前端。
 

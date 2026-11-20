@@ -2,7 +2,7 @@ import type { ZodType } from 'zod'
 
 export type PushCategory = 'question' | 'plan' | 'approval' | 'response' | 'goal' | 'failure' | 'test'
 export type PushPreferences = Readonly<Record<Exclude<PushCategory, 'test'>, boolean>>
-export type PushLocale = 'en' | 'zh-CN' | 'it'
+export type PushLocale = 'en' | 'zh-CN' | 'ru' | 'it'
 export interface VapidKeys { readonly publicKey: string; readonly privateKey: string }
 export interface PushMutationGuard { readonly ownerGeneration: number; readonly registrationGeneration: number }
 export interface PushSource {

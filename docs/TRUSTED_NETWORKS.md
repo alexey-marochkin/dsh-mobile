@@ -1,6 +1,6 @@
 # 额外可信网段
 
-[English](TRUSTED_NETWORKS.en.md) · [返回局域网指南](../README.md#局域网访问)
+[English](TRUSTED_NETWORKS.en.md) · [返回局域网指南](../README.zh-CN.md#局域网访问)
 
 > 插件 0.6.0 起提供此电脑端高级设置，不要求 App 使用相同版本或为此同步升级。
 

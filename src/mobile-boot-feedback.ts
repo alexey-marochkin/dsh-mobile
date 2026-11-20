@@ -1,8 +1,19 @@
 /** Framework-free feedback for a Gateway document whose application entry never renders. */
 type BootFailure = 'syntax_error' | 'script_execution_failed' | 'script_load_failed' | 'promise_rejected' | 'startup_stalled'
-type BootLocale = 'zh' | 'en' | 'it'
+type BootLocale = 'zh' | 'en' | 'ru' | 'it'
 
 const COPY = {
+  ru: {
+    title: "Не удалось запустить DSH",
+    syntax_error: "Сценарий страницы не может быть прочитан этим веб-движком. Этому DSH-клиенту может потребоваться более новый движок.",
+    script_execution_failed: "Сценарий страницы останавливается до того, как DSH может отобразить свой интерфейс.",
+    script_load_failed: "Невозможно загрузить нужный скрипт страницы. Проверьте соединение с этим компьютером.",
+    promise_rejected: "Стартап страницы потерпел неудачу, прежде чем DSH смог отобразить свой интерфейс.",
+    startup_stalled: "DSH еще не показал свой интерфейс. Подключение может быть медленным, или этот веб-движок может не поддерживать клиента.",
+    help: "Обновите систему WebView или ее браузер, если обновление доступно. Также можно использовать адрес мобильного доступа этого компьютера в поддерживаемом браузере. Пары не были удалены.",
+    retry: "Перезагрузить страницу",
+    dismiss: "Продолжай ждать.",
+  },
   en: {
     title: 'DSH could not start',
     syntax_error: 'A page script could not be read by this web engine. This DSH client may require a newer engine.',
@@ -48,7 +59,7 @@ const STYLE = `
 function locale(): BootLocale {
   for (const value of [...(navigator.languages ?? [navigator.language]), document.documentElement.lang]) {
     const language = value.toLowerCase().split(/[-_]/u)[0]
-    if (language === 'en' || language === 'it' || language === 'zh') return language
+    if (language === 'en' || language === 'ru' || language === 'it' || language === 'zh') return language
   }
   return 'en'
 }

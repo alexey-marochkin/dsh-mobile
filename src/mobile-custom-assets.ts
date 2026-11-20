@@ -4,6 +4,15 @@ import type { MobileControlLocale } from './client-messages.js'
 export type MobileAssetLoadFailure = 'gateway_required' | 'authentication_required' | 'manifest_unavailable' | 'manifest_invalid' | 'resource_unavailable' | 'refresh_failed'
 
 const COPY: Record<MobileControlLocale, Record<MobileAssetLoadFailure | 'recovered', string>> = {
+  ru: {
+    gateway_required: "Для пользовательских мобильных CSS, скриптов и расширений требуется пара DSH Mobile Access entry. Эта страница не использует мобильный шлюз.",
+    authentication_required: "Мобильная настройка не была обновлена, потому что аутентификация устройства недоступна. Воссоединитесь через текущий вход мобильного доступа.",
+    manifest_unavailable: "Манифест мобильного расширения недоступен. Проверьте версию плагина и маршрутизацию прокси; устаревшие пользовательские файлы все еще могут загружаться при авторизации.",
+    manifest_invalid: "Манифест мобильного расширения недействителен.Существующая настройка сохраняется; проверьте версию плагина и маршрутизацию прокси.",
+    resource_unavailable: "Ресурс мобильной настройки не может быть загружен или активирован. Проверьте пользовательские файлы и текущую запись мобильного доступа.",
+    refresh_failed: "Мобильная настройка не может быть обновлена. Проверьте соединение и текущий вход в мобильный доступ.",
+    recovered: "Мобильная настройка снова доступна.",
+  },
   en: {
     gateway_required: 'Custom mobile CSS, scripts and extensions require a paired DSH Mobile access entry. This page is not using the Mobile gateway.',
     authentication_required: 'Mobile customization was not refreshed because device authentication is unavailable. Reconnect through the current Mobile access entry.',

@@ -1,5 +1,5 @@
 /** Browser-facing pairing and reauthentication pages with language negotiation. */
-export type AuthPageLocale = 'zh' | 'en' | 'it'
+export type AuthPageLocale = 'zh' | 'en' | 'ru' | 'it'
 
 interface AuthPageCopy {
   readonly lang: string
@@ -25,6 +25,21 @@ interface AuthPageCopy {
 }
 
 const COPY: Record<AuthPageLocale, AuthPageCopy> = {
+  ru: {
+    lang: "ru", pairTitle: "Сопряжение с DSH", pairHeading: "Сопряжение устройства",
+    pairingCode: "Код сопряжения", deviceName: "Имя устройства", pair: "Связать", pairing: "Выполняется сопряжение…",
+    pairingCodeHint: "Введите код сопряжения из 43 символов, показанный на компьютере. Ключи с префиксом dsh1. или dsh2. предназначены для Android-приложения.",
+    invalidPairingCode: "Введите код сопряжения 43 символов из текущего окна сопряжения на компьютере.",
+    appKeyNotCode: "Это ключ приложения для Android. Используйте его в приложении или скопируйте код сопряжения браузера с компьютера.",
+    pairFailed: "Не удалось выполнить сопряжение. Проверьте код или создайте новый на компьютере.",
+    pairingExpired: "Код сопряжения неверен или истёк. Создайте новый код на компьютере и повторите попытку.",
+    pairingLimited: "Слишком много попыток сопряжения. Подождите немного и повторите.",
+    deviceLimit: "Достигнут лимит сопряжённых устройств. Удалите ненужное устройство и создайте новый код на компьютере.",
+    unavailable: "Компьютер недоступен. Проверьте соединение и попробуйте еще раз.",
+    reconnectTitle: "Восстановление мобильного доступа к DSH", reconnectHeading: "Восстановить подключение устройства",
+    restoring: "Восстановление безопасной сессии...", noLongerPaired: "Сопряжение с устройством отозвано. Откройте панель на компьютере и выполните сопряжение заново.",
+    openPairing: "Открыть сопряжение",
+  },
   en: {
     lang: 'en', pairTitle: 'Pair DSH mobile access', pairHeading: 'Pair this device',
     pairingCode: 'Pairing code', deviceName: 'Device name', pair: 'Pair', pairing: 'Pairing…',
@@ -72,7 +87,7 @@ const COPY: Record<AuthPageLocale, AuthPageCopy> = {
   },
 }
 
-/** Choose Chinese, Italian, or English from an HTTP Accept-Language header. */
+/** Choose a supported language from an HTTP Accept-Language header. */
 export function resolveAuthPageLocale(header: string | undefined): AuthPageLocale {
   const values = header?.split(',').map((value, index) => {
     const [language, ...parameters] = value.split(';')
@@ -86,6 +101,7 @@ export function resolveAuthPageLocale(header: string | undefined): AuthPageLocal
   }).filter(value => value.quality > 0).sort((left, right) => right.quality - left.quality || left.index - right.index).map(value => value.language) ?? []
   for (const value of values) {
     if (value.startsWith('zh')) return 'zh'
+    if (value === 'ru' || value.startsWith('ru-')) return 'ru'
     if (value.startsWith('it')) return 'it'
     if (value.startsWith('en')) return 'en'
   }

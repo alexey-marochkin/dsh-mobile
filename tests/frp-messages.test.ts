@@ -6,7 +6,7 @@ import {
   MOBILE_CONTROL_MESSAGES,
 } from '../src/client-messages.js'
 
-const LOCALES = ['en', 'it', 'zh'] as const
+const LOCALES = ['en', 'it', 'ru', 'zh'] as const
 
 /** Every key added for the attach mode and the self-signed entry. */
 const ATTACH_KEYS = [
@@ -54,7 +54,7 @@ describe('three-locale message parity', () => {
     }
   })
 
-  it('translates every attach key and every FRP error key in all three locales', () => {
+  it('translates every attach key and every FRP error key in all supported locales', () => {
     for (const locale of LOCALES) {
       for (const key of [...ATTACH_KEYS, ...FRP_ERROR_KEYS]) {
         expect(table(locale)[key], `${locale}.${key}`).toBeTruthy()

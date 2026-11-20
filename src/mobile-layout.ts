@@ -504,7 +504,7 @@ export function resolveMobileLayoutLanguage(
 ): MobileLayoutLanguage {
   return [documentLanguage, ...browserLanguages]
     .map(value => value.trim().toLowerCase().split(/[-_]/u)[0])
-    .find((value): value is MobileLayoutLanguage => value === 'it' || value === 'en' || value === 'zh') ?? 'en'
+    .find((value): value is MobileLayoutLanguage => value === 'ru' || value === 'it' || value === 'en' || value === 'zh') ?? 'en'
 }
 
 class MobileLayoutController {

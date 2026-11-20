@@ -31,6 +31,17 @@ const MESSAGES = {
     createParent: '创建位置', creating: '正在创建文件夹…', createStopping: '正在结束创建请求…',
     createUnknown: '无法确认创建结果，文件夹可能已创建。请返回并重新读取目录，确认后再决定是否重试。',
   },
+  ru: {
+    title: "Выберите директорию рабочего пространства", path: "Путь к директории", go: "Перейти", home: "Домашняя папка", up: "На одном уровне", cancel: "Отмена", close: "Закрыть", open: "Открыть", retry: "Повторить",
+    loading: "Загрузка папок...", adopting: "Открытие рабочего пространства...", empty: "Никаких подпапок в этом каталоге", truncated: "Показаны только первые папки; введите полный путь к открытию другого каталога",
+    'bad-path': "Введите абсолютный компьютерный путь, такой как C:\\projects или /home/user/projects.", unavailable: "Не смог прочитать этот каталог. Проверьте его путь и разрешения доступа, затем повторите.",
+    unauthorized: "Авторизация соединения недоступна. Закройте этот диалог и подключитесь к компьютеру.", 'invalid-response': "Реакция каталога недоступна. Повторите или подключитесь к компьютеру.",
+    'request-failed': "Не смог загрузить этот каталог. Проверь соединение и повтори.", timeout: "Загрузка отсрочена, повторите или отмените.", failedOpen: "Не удалось открыть наборщик каталогов.",
+    create: "Новая папка", createTitle: "Новое имя папки", createAction: "Создать", createInvalid: "Введите одно имя папки без разделителей пути.",
+    createExists: "Папка с таким названием уже существует.", createFailed: "Не удалось создать папку. Проверь запись доступа к этому каталогу и повтори.",
+    createParent: "Создавать", creating: "Создание папки...", createStopping: "Завершение запроса на создание...",
+    createUnknown: "Результат создания неизвестен; папка может уже существовать.Возвратитесь и перезагрузите каталог, прежде чем решить, следует ли повторить попытку.",
+  },
   en: {
     title: 'Select workspace directory', path: 'Directory path', go: 'Go', home: 'Home', up: 'Up one level', cancel: 'Cancel', close: 'Close', open: 'Open', retry: 'Retry',
     loading: 'Loading folders…', adopting: 'Opening workspace…', empty: 'No subfolders in this directory', truncated: 'Only the first folders are shown; enter a full path to open another directory',
@@ -72,7 +83,7 @@ function localeOf(doc: Document): Locale {
   const languages = [doc.documentElement.lang, ...(doc.defaultView?.navigator.languages ?? [])]
   for (const language of languages) {
     const code = language.toLowerCase().split('-')[0]
-    if (code === 'zh' || code === 'en' || code === 'it') return code
+    if (code === 'zh' || code === 'en' || code === 'ru' || code === 'it') return code
   }
   return 'en'
 }

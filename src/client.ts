@@ -282,7 +282,7 @@ if (typeof window !== 'undefined' && window.dshMobile === undefined) {
 export function selectMobileControlLocale(documentLanguage = '', navigatorLanguages: readonly string[] = []): MobileControlLocale {
   for (const value of [documentLanguage, ...navigatorLanguages]) {
     const language = value.trim().toLowerCase().split(/[-_]/u)[0]
-    if (language === 'it' || language === 'en' || language === 'zh') return language
+    if (language === 'ru' || language === 'it' || language === 'en' || language === 'zh') return language
   }
   return 'en'
 }
@@ -298,6 +298,7 @@ export function selectedMobileControlLocale(): MobileControlLocale {
  */
 export function mobileBackBlockedMessage(locale: MobileControlLocale): string {
   const messages: Record<MobileControlLocale, string> = {
+    ru: "Сначала закройте открытую панель.",
     en: 'Close the open panel first.',
     it: 'Chiudi prima il pannello aperto.',
     zh: '请先关闭当前弹层。',
@@ -420,6 +421,14 @@ function mobileSwitchComputerCopy(locale: MobileControlLocale): MobileSwitchComp
     retry: '重试',
     error: '切换失败，请重试。',
   }
+  if (locale === 'ru') return {
+    title: "Сменить компьютер",
+    description: "Вернитесь в список парных устройств и выберите компьютер для открытия.",
+    action: "Сменить компьютер",
+    busy: "Переключение...",
+    retry: "Повторить",
+    error: "Я не могу поменять компьютеры, попробуйте еще раз.",
+  }
   if (locale === 'it') return {
     title: 'Cambia computer',
     description: 'Torna all’elenco dei computer associati e scegli quale aprire.',
@@ -497,6 +506,16 @@ function mobileTaskNotificationCopy(locale: MobileControlLocale): MobileTaskNoti
     error: '无法打开通知设置，请重试。',
     retry: '重试',
   }
+  if (locale === 'ru') return {
+    title: "Уведомления о задачах",
+    description: "Включите напоминания Android для завершенных задач и ожидающего подтверждения.",
+    action: "Настройки уведомлений",
+    busy: "Открытие...",
+    success: "Подтвердить доступ к уведомлениям в системе с подсказкой или настройками.",
+    reopen: "Открыть снова",
+    error: "Не удалось открыть настройки оповещения.",
+    retry: "Повторить",
+  }
   if (locale === 'it') return {
     title: 'Notifiche delle attività',
     description: 'Attiva gli avvisi Android per le attività completate o in attesa di conferma.',
@@ -562,6 +581,16 @@ function mobileBackgroundNotificationCopy(locale: MobileControlLocale): MobileBa
     error: '无法更新后台提醒；请确认任务通知权限和当前连接。',
     connected: '已连接',
     disconnected: '未连接',
+  }
+  if (locale === 'ru') return {
+    title: "Напоминания о базовых задачах",
+    description: "Продолжайте получать оповещения о завершении после того, как Android приостановит страницу, через скрытое постоянное соединение.",
+    enabled: "Напоминания об инвалидности",
+    disabled: "Включите фоновые напоминания",
+    busy: "Работать...",
+    error: "Не удалось обновить фоновые напоминания. Проверить разрешение уведомления и активное соединение.",
+    connected: "подключенный",
+    disconnected: "Не подключено",
   }
   if (locale === 'it') return {
     title: 'Promemoria in background',
@@ -1091,7 +1120,7 @@ export function localizedDiagnosticEntryCopy(
   versions?: unknown,
 ): { readonly detail: string; readonly action: string } {
   const t = controlTranslator(locale)
-  const localeTag = locale === 'it' ? 'it-IT' : locale === 'zh' ? 'zh-CN' : 'en-US'
+  const localeTag = locale === 'ru' ? 'ru-RU' : locale === 'it' ? 'it-IT' : locale === 'zh' ? 'zh-CN' : 'en-US'
   const serverCopy = diagnosticServerCopy(entry)
   const reason = typeof entry.reason === 'string' ? entry.reason : ''
   const facts = entry.facts !== null && typeof entry.facts === 'object' ? entry.facts as Record<string, unknown> : {}
@@ -1158,7 +1187,7 @@ function installControl(): { remove: () => void; toggle: () => void; isOpen: () 
     return key === undefined ? t(fallbackKey, { error: message }) : t(key)
   }
   const locale = selectedMobileControlLocale()
-  const localeTag = locale === 'it' ? 'it-IT' : locale === 'zh' ? 'zh-CN' : 'en-US'
+  const localeTag = locale === 'ru' ? 'ru-RU' : locale === 'it' ? 'it-IT' : locale === 'zh' ? 'zh-CN' : 'en-US'
   const t = controlTranslator(locale)
   const lifecycle = new AbortController()
   const controlRequestJson = (path: string, init?: RequestInit, timeoutMs?: number): Promise<Record<string, unknown>> => requestJson(path, { ...init, signal: lifecycle.signal }, timeoutMs)
@@ -2866,10 +2895,10 @@ function installControl(): { remove: () => void; toggle: () => void; isOpen: () 
       ? configuredFrpServer
       : `${configuredFrpOrigin} · ${configuredFrpServer}:${String(configuredFrpPort)}`
     frpToken.placeholder = frpConfigured
-      ? (locale === 'zh' ? '已安全保存；留空保持不变' : locale === 'it' ? 'Salvato; lascia vuoto per mantenerlo' : 'Saved securely; leave blank to keep it')
+      ? (locale === 'zh' ? '已安全保存；留空保持不变' : locale === 'ru' ? 'Сохранено. Оставьте поле пустым, чтобы сохранить значение' : locale === 'it' ? 'Salvato; lascia vuoto per mantenerlo' : 'Saved securely; leave blank to keep it')
       : t('frpTokenPlaceholder')
     vpsDeploy.textContent = frpConfigured
-      ? (locale === 'zh' ? '修复或重新部署 VPS' : locale === 'it' ? 'Ripara o ridistribuisci VPS' : 'Repair or redeploy VPS')
+      ? (locale === 'zh' ? '修复或重新部署 VPS' : locale === 'ru' ? 'Восстановить или повторно настроить VPS' : locale === 'it' ? 'Ripara o ridistribuisci VPS' : 'Repair or redeploy VPS')
       : t('vpsDeploy')
     frpConnectionSummary.textContent = `${frpConfigured ? '✓ ' : ''}${t('frpStep1Title')}`
     frpComponentSummary.textContent = `${frpInstalled ? '✓ ' : ''}${t('frpStep3Title')}`
@@ -5105,7 +5134,7 @@ export function installCustomAssets(recovery?: {
     ? installCustomizationNotice(document, {
       locale: () => {
         const locale = selectedMobileControlLocale()
-        return locale === 'zh' || locale === 'it' ? locale : 'en'
+        return locale === 'zh' || locale === 'ru' || locale === 'it' ? locale : 'en'
       },
       reconnect: () => {
         // With a native bridge the recovery owner renews and reconnects; without
@@ -5567,12 +5596,12 @@ export function installCustomAssets(recovery?: {
         document.documentElement.lang,
         navigator.languages.length > 0 ? [...navigator.languages] : [navigator.language],
       )
-      const label = (italian: string, english: string, chinese: string): string =>
-        language === 'it' ? italian : language === 'zh' ? chinese : english
+      const label = (italian: string, english: string, chinese: string, russian: string): string =>
+        language === 'ru' ? russian : language === 'it' ? italian : language === 'zh' ? chinese : english
       fireTaskNotifyEvent({
         kind: 'done',
-        title: label('Attività completata', 'Task finished', '任务已完成'),
-        body: label('Il tuo task DSH è terminato', 'Your DSH task finished', '你的 DSH 任务已完成'),
+        title: label('Attività completata', 'Task finished', '任务已完成', "Задание завершено"),
+        body: label('Il tuo task DSH è terminato', 'Your DSH task finished', '你的 DSH 任务已完成', "Задание DSH завершено"),
         tag: taskCompletionTag(parsed.sessionId, parsed.turn),
         navigate: taskNotificationNavigate(parsed.sessionId),
       })
@@ -5891,6 +5920,7 @@ interface MobilePushEntryRuntime {
 /** Resolve safe, locale-owned copy for tap-navigation results. */
 export function mobilePushNavigationNotice(locale: MobileControlLocale, key: 'session-unavailable' | 'session-resolved'): string {
   const messages: Record<MobileControlLocale, Record<typeof key, string>> = {
+    ru: { 'session-unavailable': "Этот разговор больше не доступен.", 'session-resolved': "Открыл разговор." },
     en: { 'session-unavailable': 'This conversation is no longer available.', 'session-resolved': 'Opened the conversation.' },
     it: { 'session-unavailable': 'Questa conversazione non è più disponibile.', 'session-resolved': 'Conversazione aperta.' },
     zh: { 'session-unavailable': '此会话已不可用。', 'session-resolved': '已打开会话。' },

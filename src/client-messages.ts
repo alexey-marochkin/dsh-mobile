@@ -1,6 +1,18 @@
-export type MobileControlLocale = 'it' | 'en' | 'zh'
+export type MobileControlLocale = 'ru' | 'it' | 'en' | 'zh'
 
 const frpFormMessages = {
+  ru: {
+    frpServerAddressInvalid: "Введите только IP-адрес frps или полное имя хоста без https://, порта или пути.",
+    frpServerPortInvalid: "Введите порт управления frps как целое число от 1 до 65535.",
+    frpTokenInvalid: "Введите общий токен длиной от 16 до 512 символов без пробелов и переносов строк. При изменении сохранённых настроек введите токен повторно.",
+    frpPublicOriginInvalid: "Введите HTTPS-адрес без пути, учётных данных и нестандартного порта. Например, https://phone.example.com. При использовании IPv4 укажите общедоступный адрес.",
+    frpPublicOriginHint: "Укажите адрес с https:// без пути и нестандартного порта. Для входа с самоподписанным сертификатом введите https://PUBLIC_IP и укажите порт отдельно.",
+    frpModeInvalid: "Выберите автоматическое развёртывание или подключение к существующему frps.",
+    frpVhostPortInvalid: "Укажите значение vhostHTTPPort из конфигурации frps: целое число от 1 до 65535.",
+    frpPublicPortInvalid: "Введите публичный порт от 1 до 65535, кроме 3080, 3443 и 3444. В поле HTTPS-адреса порт указывать не нужно.",
+    frpActionBusy: "Дождитесь окончания текущей операции и сохраните настройки.",
+    frpInstallBeforeConnect: "Установите локальный компонент frpc на шаге 3 перед сохранением и проверкой соединения.",
+  },
   en: {
     frpServerAddressInvalid: 'Enter the frps IP address or full hostname only, without https://, a port, or a path.',
     frpServerPortInvalid: 'Enter the frps control port as a whole number from 1 to 65535.',
@@ -40,6 +52,7 @@ const frpFormMessages = {
 } satisfies Record<MobileControlLocale, Record<string, string>>
 
 const storageMessages = {
+  ru: { funnelStateInvalid: "Частная папка состояния Tailscale не может быть безопасно доступна. Проверьте ее разрешения или ссылки каталога; переустановка компонента не требуется.", componentPathUnsafe: "Папка компонентов содержит небезопасную ссылку или недоступна. Проверьте каталог и разрешения, затем повторите попытку." },
   en: { funnelStateInvalid: 'The private Tailscale state folder cannot be accessed safely. Check its permissions or directory links; reinstalling the component is not required.', componentPathUnsafe: 'The component folder contains an unsafe link or cannot be accessed. Check the directory and permissions, then retry.' },
   zh: { funnelStateInvalid: 'Tailscale 私有登录目录无法安全访问。请检查目录权限或链接，不必重新安装组件。', componentPathUnsafe: '组件目录包含不安全的链接或无法访问。请检查目录和权限后重试。' },
   it: { funnelStateInvalid: 'La cartella privata Tailscale non è accessibile in sicurezza. Controlla permessi o collegamenti; non occorre reinstallare il componente.', componentPathUnsafe: 'La cartella del componente contiene un collegamento non sicuro o non è accessibile. Controlla directory e permessi, poi riprova.' },
@@ -47,6 +60,13 @@ const storageMessages = {
 
 /** Desktop-only stopped-worker recovery, independent of remote provider state. */
 export const EXTENSION_RECOVERY_MESSAGES = {
+  ru: {
+    extensionRecoveryTitle: "Расширение требует перезапуска", extensionRecoveryHelp: "Только остановленное продление возобновляется. Незавершенные действия не повторяются.",
+    extensionRecoveryRestart: "Перезапустить", extensionRecoveryRestarting: "Восстановление...", extensionRecoveryRestartAria: "Перезапустить расширение {name}",
+    extensionRecoveryConfirm: "Перезапустить расширение\".{name}Незавершенные действия не будут перепроверены. Ранее завершенные изменения не будут отменены.",
+    extensionRecoveryRefresh: "Проверить еще раз", extensionRecoveryLoadFailed: "Не смог проверить статус продления. Проверить еще раз перед перезагрузкой.",
+    extensionRecoveryFailed: "Расширение не перезапускалось. Проверьте его конфигурацию, затем повторите.", extensionRecoveryChanged: "Файлы расширения изменились. Просмотрите изменения и перезагрузите расширение, прежде чем пытаться снова.",
+  },
   en: {
     extensionRecoveryTitle: 'An extension needs a restart', extensionRecoveryHelp: 'Only the stopped extension restarts. Unfinished actions are not retried.',
     extensionRecoveryRestart: 'Restart', extensionRecoveryRestarting: 'Restarting…', extensionRecoveryRestartAria: 'Restart extension {name}',
@@ -71,6 +91,23 @@ export const EXTENSION_RECOVERY_MESSAGES = {
 } satisfies Record<MobileControlLocale, Record<string, string>>
 
 export const MOBILE_CONTROL_MESSAGES = {
+  ru: {
+    ...frpFormMessages.ru,
+    mobileAccess: "Мобильный доступ", collapseMobileAccess: "Свернуть панель мобильного доступа", downloadAndroid: "Скачать последнее приложение Android", downloadAndroidVersion: "Скачайте последнее приложение для Android · v{version}", downloadAndroidIroh: "Скачать полностью APK (iroh)", downloadAndroidIrohAria: "Скачать полный Android APK, который включает в себя iroh", downloadAndroidIrohVersion: "Скачать полностью APK (iroh) · v{version}", downloadAndroidVersionSize: "Скачать последнее приложение Android · v{version} · {size} MB", downloadAndroidIrohVersionSize: "Скачать полный APK (iroh) · v{version} · {size} MB", downloadAndroidAria: "Скачать последнее приложение для Android из GitHub Releases", downloadAndroidVersionAria: "Скачать приложение Android v{version} из GitHub Releases", updatePlugin: "Обновление плагина", updatePluginAria: "Обновление DSH Mobile до v{version}", updatingPlugin: "Обновление...", pluginUpdatedRestart: "Обновлено до v{version}. Перезапустить DSH, чтобы применить его.", pluginUpdateFailed: "Обновление провалилось: {error}", updateTo: "Обновление для v{version}", updateNotice: "Перезагрузите DSH после установки. Существующие приложения и парные устройства не нуждаются в повторной спаривании; не уверены в настольной версии? Проверьте таблицу совместимости README.", updateNotesEmpty: "Никаких заметок о выпуске не найдено — обновление все еще в порядке; полная информация на странице выпуска GitHub.", updateNow: "Обновить сейчас", updateLater: "Позже",
+    lan: "Локальная сеть", lanChoiceDescription: "Тот же Wi-Fi или точка доступа. Быстрый путь, без интернета или учетной записи.", remote: "Удалённое подключение", lanAccess: "Доступ по локальной сети", remoteAccess: "Удалённый доступ", browserAccess: "Доступ из браузера", remoteAddress: "Удаленный адрес", loadingStatus: "Загрузочный статус...", loadingRemoteStatus: "Удаленный статус загрузки...",
+    generateCopyKey: "Создать QR-код сопряжения", copyPairLink: "Скопировать ссылку для сопряжения", managePairedDevices: "Управление сопряжёнными устройствами", clearAllDevices: "Удалить все устройства", pairingQr: "QR-код сопряжения",
+    remoteIntro: "Выберите подходящий вам удалённый канал.Переключение или отключение удаленного доступа не влияет на локальную сеть.", httpFrameWarning: "HTTP-страницы могут быть встроены для совместимости, но их содержимое не зашифровано и может быть изменено. Используйте HTTPS для конфиденциальной работы.", chooseProvider: "Выберите способ подключения", currentProvider: "Текущая связь", remoteStateOff: "Выкл.", remoteStateConnecting: "Подключение", remoteStateAttention: "Требуется внимание", providerInfoAria: "Просмотр безопасности удаленного соединения и сетевой информации", providerGroupAria: "Метод удаленного подключения", providerSafeTitle: "Вы остаетесь под защитой", providerSafeText: "Только парные устройства могут получить доступ к DSH. В сетях материкового Китая предпочитают iroh (одноранговый, без домена или учетной записи) или cpolar; Tailscale может быть медленным или недоступным там. Каждый компонент по требованию может быть полностью удален.",
+    builtIn: "Встроено", mainlandPreferred: "Предпочитается в материковом Китае", tailscaleDescription: "Широкое покрытие; вход в Tailscale и включение Funnel один раз. Сети материкового Китая могут быть нестабильными.", cpolarDescription: "Хорошо работает на сетях материкового Китая. Устанавливает официальный компонент по требованию и дает вам временный публичный адрес.",
+    prepareCpolar: "Подготовьтесь cpolar", checkingComponent: "Проверка компонента...", installOfficial: "Установите официальный компонент", cpolarAccountNote: "Войдите на веб-сайт cpolar и скопируйте Authtoken. Токен хранится только в частном каталоге плагина и никогда не отображается на странице или в журналах.", registerCpolar: "Зарегистрируйтесь cpolar", openDashboard: "Открытая панель инструментов для получения токена", tokenPlaceholder: "паста cpolar Ауттокен", saveConnect: "Сохранить и подключиться", saving: "Спасти...", componentDetails: "Источник компонентов и очистка", componentDetailsText: "Загружен с официального сайта cpolar и проверен в фиксированной версии только после выбора Install. Он не добавляет системный сервис, элемент запуска, запись в реестре или запись PATH.", pluginPrivateDirectory: "Частный каталог Plugin", officialDownload: "Официальная страница загрузки", terms: "Условия предоставления услуг", purgeCpolar: "Полностью удалить cpolar компонент и конфигурация", tailscaleHelp: "Как использовать Tailscale", tailscaleHelpText: "Компонент времени выполнения включен в плагин.Первое соединение открывает официальные страницы авторизации Tailscale и Funnel; плагин никогда не обращается к паролю вашей учетной записи.",
+    funnelGuideAria: "Шаги, позволяющие использовать Tailscale Funnel", funnelGuideTitle: "Удаленная настройка доступа · Шаг 2", funnelGuideSummary: "Tailscale Воронка все еще должна быть разрешена для этого компьютера; официальная страница также позволяет HTTPS.", funnelStep1: "Откройте официальную страницу авторизации Tailscale для этого узла.", funnelStep2: "Подтвердите воронку; вам не нужно снова входить в DSH.", funnelStep3: "Вернитесь к DSH; плагин проверяет и подключается автоматически.", funnelGuideNote: "Требуется владелец, администратор или сетевой админ-аккаунт.", continueFunnel: "Продолжить авторизацию воронки", retryNow: "Готово, повторим сейчас",
+    enableRemote: "Включить удалённый доступ", disableRemote: "Отключить удалённый доступ", continueLogin: "Продолжить логин", reconnect: "Подключиться снова", generateRemoteQr: "Создать QR-код сопряжения", copyRemoteLink: "Копирование удаленной парной линии", manageRemoteDevices: "Управление удаленными устройствами", resetRemoteLogin: "Зарегистрируйтесь и очистите удаленный вход", resetRemoteDevices: "Отключение и очистка удаленных устройств",
+    lanOn: "Доступ к локальной сети включен.", lanOff: "Доступ к локальной сети отключен.", lanBadgeOn: "Вкл.", lanBadgeOff: "Выкл.", qrGenerated: "QR-код для локальной сети готов. Отсканируйте его из приложения.", qrPlaceholder: "Нажмите «Создать QR-код сопряжения».", irohQrPlaceholder: "Нажмите кнопку создания QR-кода сопряжения для iroh.", irohLinkCopied: "Парная ссылка скопирована. Вставьте или откройте ее в полном приложении Android; браузеры не могут использовать iroh.", remoteQrPlaceholder: "Нажмите «Создать QR-код сопряжения».", remoteQrPlaceholderIdle: "Включите удаленный доступ для генерации сопряжения QR.", pairingExpires: "сопряжение QR действителен до {time}Восстановление недействительного старого кода.", pairingExpired: "Сопряжение QR истекло. Создайте новый.", cloudflaredEnableNeedsConfig: "Сохраните настройки названного туннеля с помощью «Сохранить и подключить» перед включением удаленного доступа.", cloudflaredShowConfig: "Показать настройки", cloudflaredHideConfig: "Скрыть настройки", cloudflaredEditConfig: "Изменить", cloudflaredSwitchModeDisconnect: "Переключение типа туннеля сначала закрывает текущее удаленное соединение.", cloudflaredTunnelSaved: "Настройки сохранены. Проверьте состояние соединения выше.", purgeIroh: "Удалить загруженный компонент iroh", irohPurgeConfirm: "Удалите компонент iroh, загруженный этим плагином? Сохраняется сохраненная идентификация, пары, пакеты компаньонов и другие программы.", irohComponentRunning: "Выключите удаленный доступ к системе iroh перед удалением ее компонента.", purgingIroh: "Удаление компонента iroh.", devicesLanTitle: "Устройства LAN", devicesRemoteTitle: "Удаленные устройства", enableLan: "Обеспечить доступ к локальной сети", disableLan: "Отключить доступ к локальной сети", extensionsLoaded: "Расширения: {loaded} loaded", extensionsFailed: "Расширения: {loaded} loaded, {failed} failed",
+    keyGenerationFailed: "Не удалось сгенерировать ключ.", keyCopied: "Парный ключ скопирован. Вставьте его в приложение для Android.", linkCopied: "Парная ссылка скопирована. Отправьте ее на телефон и вставьте в приложение или откройте в браузере.", copySecret: "Копия {kind}: {value}", pairingKey: "ключ сопряжения", pairingLink: "ссылка для сопряжения", noDevices: "Нет сопряжённых устройств.", noRemoteDevices: "Нет устройств с удалённым доступом.", device: "Устройство", expires: "Исчезновение {time}", revoke: "Отозвать доступ", confirmResetDevices: "Удалите все парные устройства? Подключенные устройства будут отключены немедленно.",
+    ready: "Готово", installed: "Установлено", installWithSize: "Установите официальный компонент · {size} MB", cpolarUnsupported: "В настоящее время поддерживаются Windows x64 и Linux x64/arm64.", cpolarNotInstalled: "Не установлена. Фиксированная версия скачивается с официального cpolar Сайт только после того, как вы нажмете кнопку ниже.", cpolarNeedsToken: "Официальный компонент {version} Проверено. Сохраните токен счета, чтобы продолжить.", cpolarReady: "Официальный компонент {version} и конфигурация локальной учетной записи готова. Бесплатные временные адреса могут измениться после DSH или cpolar Перезагрузка; если приложение не может подключиться, сканируйте текущий пульт QR Опять код.",
+    remoteOff: "Дистанционный доступ отключен. Доступ к локальной сети не затронут.", remoteUnavailableCpolar: "cpolar не установлен или его локальная учетная запись не настроена.", remoteUnavailableTailscale: "На этом компьютере отсутствует компонент времени выполнения Funnel. Переустановите полный пакет плагинов.", remoteStartingCpolar: "Подключение к a cpolar Узел...", remoteStartingTailscale: "Запуск безопасного канала Tailscale", remoteNeedsLogin: "Заполните одноразовый вход в Tailscale в браузере. Плагин никогда не читает ваш пароль.", remoteConnectingCpolar: "Публичный адрес выделен; запуск шлюза аутентификации DSH", remoteConnectingTailscale: "Заполните вход; создание общедоступного адреса HTTPS", remoteReady: "Удаленный доступ готов. Только парные устройства могут получить доступ к DSH.", remoteError: "Удалённое подключение не установлено. Воссоединитесь; доступ к локальной сети всё ещё работает.",
+    funnelPermission: "Логин завершен. Разрешите Funnel установить удаленное соединение автоматически.", funnelHttps: "Авторизовать Воронку; официальная страница также включает HTTPS.", funnelStart: "Завершите начальную авторизацию Tailscale Funnel.", funnelCertificate: "Tailscale приняла слушателя, но не выдала публичный сертификат HTTPS, поэтому адрес пока не может обслуживаться.Подключитесь; если он сохраняется, подтвердите, что сертификаты HTTPS включены для этой сети.", tailscaleDnsMissing: "Tailscale не предоставила удаленный адрес. Воссоединитесь и подтвердите логин.", gatewayStartFailed: "Удаленный шлюз не удалось запустить. Воссоединиться; доступ к локальной сети не затронут.", controlChannelFailed: "Удалённое соединение компонентов было прервано.", cpolarMissing: "Официальный cpolar Компонент не установлен. Завершите этапы подготовки выше.", cpolarInvalid: "cpolar Проверка компонентов не удалась, полностью удалить и переустановить.", cpolarConfigMissing: "Нет. cpolar Токен аккаунта сохранен. Завершите этапы подготовки выше.", cpolarConfigInvalid: "Местный cpolar Конфигурация недействительна. Сохранить токен счета снова.", cpolarPortUnavailable: "Не смог выделить местный порт удаленного шлюза.", cpolarLaunchFailed: "The cpolar Клиенту не удалось начать.", cpolarTimeout: "Время подключения к a cpolar Узел, подключись.", cpolarStopped: "The cpolar Связь прекратилась.", cpolarExited: "The cpolar Подключение неожиданно прекратилось.", cpolarOutputInvalid: "cpolar Возвращается непризнанный статус.", cpolarOriginInvalid: "Публичный адрес, возвращенный cpolar Неудачная проверка.", setupOpened: "Официальная страница Tailscale открыта. Возвращение в DSH после включения Funnel; повторное подключение является автоматическим.",
+    switchProviderConfirm: "Метод коммутации соединения сначала отключает текущий удаленный канал. Локальный доступ к сети и парные устройства не затронуты. Продолжайте?", switchingCpolar: "Переключаться на cpolar…", switchingTailscale: "Переключение на Tailscale Funnel", installConfirm: "Загрузите и проверьте фиксированную версию с официального веб-сайта cpolar (около 7,3 МБ) и извлеките ее только в частный каталог DSH Mobile?", downloading: "Загрузка и проверка...", installingCpolar: "Установка официального cpolar Компонент. DSH Бегите, пока не закончите.", installFailed: "Установка компонентов не удалась: {error}", invalidToken: "Полный ауттокен от The Authtoken cpolar приборная панель.", configuredConnecting: "Сохраненная конфигурация аккаунта; подключение через cpolar…", configureFailed: "Конфигурация не удалась: {error}", purgeConfirm: "Полностью удалить cpolar компонент, конфигурация токена и журналы времени выполнения из DSH Mobile Доступ к локальной сети. DSH Данные и другие системные программы не затронуты.", purging: "Остановка канала и удаление cpolar Файлы, управляемые DSH Mobile…", purgeFailed: "Уборка провалилась: {error}", reconnectingCpolar: "Воссоединение к a cpolar Узел...", reconnectingTailscale: "Проверка настроек Tailscale и повторное подключение...", remoteQrReady: "QR-код готов. Отсканируйте его в разделе «Удалённый доступ» приложения.", resetCpolarConfirm: "Инвалидность cpolar Удаленный канал и удалите все удаленные парные устройства? cpolar Счет и другие туннели не изменились.", resetTailscaleConfirm: "Выйдите из Tailscale на этом компьютере и удалите все удаленные парные устройства? Конфигурация локальной сети неизменна.", requestFailed: "Запрос провалился: {error}", wsPathsTitle: "Сторонние пути WebSocket", wsPathsIntro: "Когда установленный плагин не может подключиться (скажем, терминал боковой панели или живая панель), это обычно происходит потому, что его пути подключения еще не утверждены. Все, что требует вашего внимания, перечислено ниже — один клик на «Разрешить» исправляет его.", wsPathsPlaceholder: "/sidebar/ws/terminal", wsPathsAdd: "Разрешить путь", wsPathsRemove: "Удалить", wsPathsEmpty: "Нечего настраивать прямо сейчас. Если плагин не может подключиться позже, здесь появляются варианты с одним щелчком мыши.", wsPathsInvalid: "Введите точный путь, начинающийся с / (без строки запроса).", wsPathsDetected: "Подключение плагина было заблокировано — нажмите Разрешить пропустить его", wsPathsAllow: "Разрешить", wsPathsAllowAll: "Разрешить всем", wsPathsGroupMeta: "{n} пути · заблокированные {m} времена", wsPathsNewBlocked: "Новые заблокированные сторонние соединения — открытая диагностика для проверки", wsPathsAdvancedToggle: "Добавить дорожки вручную (продвинутый)", wsPathsAnnounce: "{n} Подключения плагинов, ожидающие одобрения", wsPathsAdvancedHint: "Ручные записи редко необходимы: используйте кнопки выше. Заполните это только тогда, когда вы знаете точный путь.",
+  },
   en: {
     ...frpFormMessages.en,
     mobileAccess: 'Mobile access', collapseMobileAccess: 'Collapse Mobile access', downloadAndroid: 'Download latest Android app', downloadAndroidVersion: 'Download latest Android app · v{version}', downloadAndroidIroh: 'Download full APK (iroh)', downloadAndroidIrohAria: 'Download the full Android APK that includes iroh', downloadAndroidIrohVersion: 'Download full APK (iroh) · v{version}', downloadAndroidVersionSize: 'Download latest Android app · v{version} · {size} MB', downloadAndroidIrohVersionSize: 'Download full APK (iroh) · v{version} · {size} MB', downloadAndroidAria: 'Download the latest Android app from GitHub Releases', downloadAndroidVersionAria: 'Download Android app v{version} from GitHub Releases', updatePlugin: 'Update plugin', updatePluginAria: 'Update DSH Mobile to v{version}', updatingPlugin: 'Updating…', pluginUpdatedRestart: 'Updated to v{version}. Restart DSH to apply it.', pluginUpdateFailed: 'Update failed: {error}', updateTo: 'Update to v{version}', updateNotice: 'Restart DSH after installing. Existing apps and paired devices need no re-pairing; unsure about the desktop version? Check the README compatibility table.', updateNotesEmpty: 'No release notes fetched — updating is still fine; full details on the GitHub Release page.', updateNow: 'Update now', updateLater: 'Not now',
@@ -101,9 +138,9 @@ export const MOBILE_CONTROL_MESSAGES = {
   zh: { ...frpFormMessages.zh } as Record<string, string>,
 } satisfies Record<MobileControlLocale, Record<string, string>>
 
-for (const locale of ['en', 'it', 'zh'] as const) Object.assign(MOBILE_CONTROL_MESSAGES[locale], EXTENSION_RECOVERY_MESSAGES[locale])
+for (const locale of ['en', 'it', 'ru', 'zh'] as const) Object.assign(MOBILE_CONTROL_MESSAGES[locale], EXTENSION_RECOVERY_MESSAGES[locale])
 
-for (const locale of ['en', 'it', 'zh'] as const) Object.assign(MOBILE_CONTROL_MESSAGES[locale], storageMessages[locale])
+for (const locale of ['en', 'it', 'ru', 'zh'] as const) Object.assign(MOBILE_CONTROL_MESSAGES[locale], storageMessages[locale])
 
 Object.assign(MOBILE_CONTROL_MESSAGES.zh, {
   mobileAccess: '移动访问', collapseMobileAccess: '收起移动访问', downloadAndroid: '下载最新 Android App', downloadAndroidVersion: '下载最新 Android App · v{version}', downloadAndroidIroh: '下载完整版 APK（含 iroh）', downloadAndroidIrohAria: '下载包含 iroh 的完整版 Android APK', downloadAndroidIrohVersion: '下载完整版（含 iroh）· v{version}', downloadAndroidVersionSize: '下载最新 Android App · v{version} · {size} MB', downloadAndroidIrohVersionSize: '下载完整版（含 iroh）· v{version} · {size} MB', downloadAndroidAria: '从 GitHub Releases 下载最新版 Android App', downloadAndroidVersionAria: '从 GitHub Releases 下载 Android App v{version}', updatePlugin: '更新插件', updatePluginAria: '将 DSH Mobile 更新至 v{version}', updatingPlugin: '正在更新…', pluginUpdatedRestart: '插件已更新至 v{version}，重启 DSH 后生效。', pluginUpdateFailed: '更新失败：{error}', updateTo: '更新到 v{version}', updateNotice: '安装后需重启 DSH。现有 App 与已配对设备无需重新配对；电脑端版本不确定时，先对照 README 兼容表。', updateNotesEmpty: '未取到最新版更新说明，仍可继续更新；详情见 GitHub Release 页。', updateNow: '立即更新', updateLater: '暂不', lan: '局域网', lanChoiceDescription: '同一 Wi-Fi 或热点下直连，最快，不需要外网或账号。', remote: '远程', lanAccess: '局域网访问', remoteAccess: '远程访问', browserAccess: '浏览器访问', remoteAddress: '远程地址', loadingStatus: '正在读取状态…', loadingRemoteStatus: '正在读取远程状态…',
@@ -145,6 +182,37 @@ Object.assign(MOBILE_CONTROL_MESSAGES.en, {
   cpolarExtractFileFailed: 'Could not read or copy the extracted cpolar executable. Check private-directory permissions and disk space; your existing component is retained.',
   cpolarStorageFailed: 'Could not write the cpolar component in DSH Mobile’s private directory. Check disk space, permissions, and security software, then retry.',
 })
+Object.assign(MOBILE_CONTROL_MESSAGES.ru, {
+  loopbackPairCopy: "Ссылка на копирование loopback pairing link",
+  loopbackTunnelTitle: "Туннель Loopback - Advanced",
+  loopbackTunnelHelp: "Принимайте шлюз через локальный туннель, который вы запускаете самостоятельно, например посетитель frp stcp по телефону, не обнажая общедоступный порт. Сертификат также охватывает 127.0.0.1 и ::1 и добавляются только эти два точных источника; Происхождение, CSRF, сеть и проверки учетных данных неизменны. По умолчанию туннель связывает порт шлюза; если ваш посетитель использует другой порт, установите его ниже.",
+  loopbackTunnelLabel: "Принять туннель обратного хода",
+  loopbackTunnelPortLabel: "Туннельный порт",
+  loopbackTunnelPortHint: "Порт, к которому привязан ваш посетитель туннеля. Держите порт шлюза, если ваш посетитель не использует другой.",
+  loopbackTunnelPortInvalid: "Введите порт между 1 и 65535.",
+  loopbackTunnelPortApply: "Применять порт",
+  loopbackTunnelOn: "Включенный",
+  loopbackTunnelOff: "инвалид",
+  loopbackTunnelRisk: "При включении любое приложение на телефоне может достигать 127.0.0.1:{port}. Парные учетные данные по-прежнему необходимы, но операционная система не обеспечивает изоляции. Включите это только тогда, когда вы управляете этим устройством и туннелем.",
+  loopbackTunnelUnavailable: "Доступен только с управляемой установкой LAN.",
+  loopbackTunnelRestart: "Перезагрузите DSH или перезапустите LAN для подачи заявки; сертификат и принятые источники фиксируются, когда слушатель начинает.",
+  loopbackTunnelInvalid: "Не удалось сохранить настройки туннеля.",
+  loopbackTunnelFailed: "Не удалось загрузить установку туннеля обратной связи.",
+  trustedNetworksTitle: "Дополнительные доверенные сети · Advanced", trustedNetworksHelp: "Держите подсеть LAN и явно добавляйте только контролируемые сети, такие как маршрутизированная подсеть WireGuard. Парирование устройств и HTTPS по-прежнему необходимы. Отдельные CIDR с пробелами, запятыми или новыми линиями.", trustedNetworksLabel: "Дополнительные исходные сети", trustedNetworksSave: "Сохранить сети", trustedNetworksUnavailable: "Доступен только с управляемой установкой LAN.", trustedNetworksRestart: "Перезагрузите DSH, чтобы применить; существующие соединения не прерываются сейчас.", trustedNetworksWindows: "В Windows брандмауэр также должен разрешать эти исходные сети; правило по умолчанию позволяет только LocalSubnet.", trustedNetworksFailed: "Не могу прочитать эту настройку. Повторите после повторного открытия этого раздела.", trustedNetworksInvalid: "Введите действительные сетевые CIDR, например 11.24.0.0/24, и проверьте, что DSH может написать свой личный файл настройки.",
+  cpolarDownloadFailed: "Не удалось загрузить cpolar с официального сайта. Проверьте сеть этого компьютера или прокси, затем повторите попытку.",
+  caddyUnavailable: "Managed Caddy недоступен для этой системы или архитектуры. Используйте существующий обратный прокси-сервер или другого удаленного провайдера; непроверенные загрузки не будут выполняться.", caddyVerified: "Управляемая запись HTTPS проверена для этого компьютера.", caddyInstalled: "Устанавливается компонент Caddy; соединение еще не проверено.", caddyConnectionFailed: "Управляемое соединение HTTPS не установлено. Проверьте домен, общедоступный входящий доступ, отображение портов и учетные данные DNS.", caddyModeChangeConfirm: "Переключение этого исходного режима закрывает его текущее соединение.", caddyInstallConfirm: "Загрузите и проверьте фиксированную сборку Caddy в частный каталог DSH Mobile? Системный сервис, PATH или элемент запуска не будут установлены.", caddyInstallFailed: "Кэдди не был установлен.Проверь, что фиксированный артефакт доступен и проверен; не обойди его контрольную сумму.", caddyPurgeFailed: "Очистка не была завершена, остановите управляемое соединение и повторите попытку.",
+  cpolarDownloadTimeout: "The cpolar Проверьте сеть этого компьютера или прокси, а затем повторите попытку.",
+  cpolarDownloadHttp: "Официальный cpolar download вернул HTTP {status}. Повторите позже или проверьте официальную страницу загрузки.",
+  cpolarIntegrityFailed: "The cpolar Загрузка не соответствовала заколоченной сборке, поэтому она не была установлена. Повторить позже или обновить DSH MobileНе обходить проверку.",
+  cpolarExtractFailed: "The cpolar Загрузка была проверена, но извлечение не удалось. DSH log; само сообщение не устанавливает блок безопасности.",
+  cpolarExtractToolsFailed: "Необходимый инструмент извлечения Windows недоступен.Проверить систему PowerShell, tar и расширить; не требуется запуска администратора или установки службы.",
+  cpolarExtractArchiveFailed: "Не удалось извлечь проверенную cpolar ZIP или найти его MSI. Проверьте этап извлечения ZIP в DSH Лог.",
+  cpolarExtractDatabaseFailed: "Не мог прочитать cpolar База данных MSI или встроенный шкаф. Проверьте этап чтения MSI в DSH log; не устанавливайте MSI в качестве обходного пути.",
+  cpolarExtractCabinetFailed: "Не удалось извлечь cpolar Проверь этап извлечения из шкафа и разрешение на частную регистрацию.",
+  cpolarExtractFileFailed: "Не мог прочитать или скопировать извлеченный cpolar Проверяйте разрешения частного каталога и дисковое пространство; ваш существующий компонент сохраняется.",
+  cpolarStorageFailed: "Не мог написать cpolar компонент в DSH MobileЧастный каталог. Проверьте дисковое пространство, разрешения и программное обеспечение безопасности, а затем повторите.",
+})
+
 Object.assign(MOBILE_CONTROL_MESSAGES.it, {
   loopbackPairCopy: 'Copia il link di associazione loopback',
   loopbackTunnelTitle: 'Tunnel di loopback · Avanzate',
@@ -210,6 +278,11 @@ Object.assign(MOBILE_CONTROL_MESSAGES.en, {
   lanSetupTitle: 'Finish local network setup', lanSetupIntro: 'Choose the network shared by this computer and your phone. DSH Mobile creates private certificates only after you confirm.', lanSetupNetwork: 'Computer network', lanSetupChooseNetwork: 'Choose a network', lanSetupRecommended: 'Recommended', lanSetupNoNetworks: 'No private Wi-Fi or Ethernet address was found. Connect this computer to the local network, then scan again.', lanSetupRefresh: 'Scan again', lanSetupFirewallNote: 'Windows may request administrator approval for two inbound rules limited to the local subnet.', lanSetupConfigure: 'Configure local network', lanSetupConfiguring: 'Creating private certificates and local network rules…', lanSetupRequired: 'Local network setup has not been completed. Choose a network above to continue.', lanSetupRestart: 'Setup complete for {origin}. Restart DSH once to start local network access.', lanSetupFailed: 'Setup was not completed. Existing firewall rules were retained when possible. Approve the Windows prompt and retry; if it still fails, check dsh-mobile.log for the exact firewall error.',
   lanChangeTitle: 'Change network', lanChangeIntro: 'Move local network access to another interface. The private CA and paired devices are kept; connected phones reconnect with the new address.', lanChangeSelect: 'New network', lanChangeRefresh: 'Scan again', lanChangeConfirm: 'Change network', lanChangeBusy: 'Changing network…', lanChangeOk: 'Network saved. If local access is stopped, enable it before connecting to the new address.', lanChangeOkDisconnected: 'Network changed and the listener restarted. Connected phones were disconnected; generate a new pairing QR to reconnect.', lanChangeCurrent: 'current', lanChangeUnchanged: 'That is already the current network.', lanChangeUnavailable: 'That network is no longer available. Scan again.', lanChangeUnsupported: 'This setup uses a fixed address, so it cannot change networks here.', lanChangeFailed: 'The change did not complete. Refresh the status before retrying; the previous configuration may have been restored.', lanChangeRefreshFailed: 'Could not refresh network status. A submitted change may have completed; check the current status before retrying.', lanChangeRecoveryRequired: 'The previous network could not be restored. Check local network configuration before enabling access again.',
 })
+Object.assign(MOBILE_CONTROL_MESSAGES.ru, {
+  lanSetupTitle: "Настройка локальной сети", lanSetupIntro: "Выберите сеть, совместно используемую этим компьютером и вашим телефоном. DSH Mobile создает частные сертификаты только после подтверждения.", lanSetupNetwork: "Компьютерная сеть", lanSetupChooseNetwork: "Выберите сеть", lanSetupRecommended: "Рекомендуемый", lanSetupNoNetworks: "Частный адрес Wi-Fi или Ethernet не был найден. Подключите этот компьютер к локальной сети, а затем сканируйте снова.", lanSetupRefresh: "Сканировать снова", lanSetupFirewallNote: "Windows может запросить одобрение администратора для двух правил, ограниченных локальной подсетью.", lanSetupConfigure: "Настройка локальной сети", lanSetupConfiguring: "Создание частных сертификатов и правил локальной сети.", lanSetupRequired: "Настройка локальной сети не завершена. Выберите сеть выше, чтобы продолжить.", lanSetupRestart: "Настройка завершена для {origin}. Перезагрузите DSH один раз, чтобы начать доступ к локальной сети.", lanSetupFailed: "Настройка не была завершена. Существующие правила брандмауэра были сохранены, когда это было возможно. Утвердить подсказку Windows и повторную попытку; если она все еще не работает, проверьте dsh-mobile.log на точную ошибку брандмауэра.",
+  lanChangeTitle: "Изменить сеть", lanChangeIntro: "Переместите доступ к локальной сети на другой интерфейс. Частный ЦА и парные устройства сохраняются; подключенные телефоны повторно подключаются к новому адресу.", lanChangeSelect: "Новая сеть", lanChangeRefresh: "Сканировать снова", lanChangeConfirm: "Изменить сеть", lanChangeBusy: "Смена сети...", lanChangeOk: "Сеть сохранена. Если локальный доступ остановлен, включите его перед подключением к новому адресу.", lanChangeOkDisconnected: "Сеть изменилась, и слушатель перезапустился. Подключенные телефоны были отключены; сгенерировать новый параметр QR для повторного подключения.", lanChangeCurrent: "текущий", lanChangeUnchanged: "Это уже существующая сеть.", lanChangeUnavailable: "Эта сеть больше не доступна. Сканируйте снова.", lanChangeUnsupported: "Эта настройка использует фиксированный адрес, поэтому она не может изменить сети здесь.", lanChangeFailed: "Изменение не завершилось. Обновить статус перед повторным использованием; предыдущая конфигурация, возможно, была восстановлена.", lanChangeRefreshFailed: "Может быть завершено представленное изменение; проверьте текущее состояние перед повторным использованием.", lanChangeRecoveryRequired: "Предыдущая сеть не могла быть восстановлена. Проверьте конфигурацию локальной сети, прежде чем снова включить доступ.",
+})
+
 Object.assign(MOBILE_CONTROL_MESSAGES.it, {
   lanSetupTitle: 'Completa la configurazione della rete locale', lanSetupIntro: 'Scegli la rete condivisa da questo computer e dal telefono. DSH Mobile crea certificati privati solo dopo la conferma.', lanSetupNetwork: 'Rete del computer', lanSetupChooseNetwork: 'Scegli una rete', lanSetupRecommended: 'Consigliata', lanSetupNoNetworks: 'Nessun indirizzo Wi-Fi o Ethernet privato trovato. Collega il computer alla rete locale e ripeti la ricerca.', lanSetupRefresh: 'Cerca di nuovo', lanSetupFirewallNote: 'Windows può richiedere l’approvazione amministratore per due regole in ingresso limitate alla sottorete locale.', lanSetupConfigure: 'Configura rete locale', lanSetupConfiguring: 'Creazione dei certificati privati e delle regole di rete locale…', lanSetupRequired: 'La configurazione della rete locale non è completa. Scegli una rete qui sopra per continuare.', lanSetupRestart: 'Configurazione completata per {origin}. Riavvia DSH una volta per attivare l’accesso locale.', lanSetupFailed: 'Configurazione non completata. Le regole firewall esistenti sono state mantenute quando possibile. Approva la richiesta di Windows e riprova; se fallisce ancora, controlla dsh-mobile.log per l’errore esatto.',
   lanChangeTitle: 'Cambia rete', lanChangeIntro: 'Sposta l’accesso alla rete locale su un’altra interfaccia. La CA privata e i dispositivi abbinati restano; i telefoni collegati si riconnettono con il nuovo indirizzo.', lanChangeSelect: 'Nuova rete', lanChangeRefresh: 'Cerca di nuovo', lanChangeConfirm: 'Cambia rete', lanChangeBusy: 'Cambio della rete…', lanChangeOk: 'Rete salvata. Se l’accesso locale è disattivato, attivalo prima di collegarti al nuovo indirizzo.', lanChangeOkDisconnected: 'Rete cambiata e listener riavviato. I telefoni collegati sono stati disconnessi; genera un nuovo QR di abbinamento per riconnetterti.', lanChangeCurrent: 'attuale', lanChangeUnchanged: 'Questa è già la rete attuale.', lanChangeUnavailable: 'La rete non è più disponibile. Cerca di nuovo.', lanChangeUnsupported: 'Questa configurazione usa un indirizzo fisso: non può cambiare rete qui.', lanChangeFailed: 'Cambio non completato. Aggiorna lo stato prima di riprovare; la configurazione precedente potrebbe essere stata ripristinata.', lanChangeRefreshFailed: 'Impossibile aggiornare lo stato. Una modifica inviata potrebbe essere stata completata; verifica prima di riprovare.', lanChangeRecoveryRequired: 'Impossibile ripristinare la rete precedente. Controlla la configurazione locale prima di riattivare l’accesso.',
@@ -228,6 +301,16 @@ Object.assign(MOBILE_CONTROL_MESSAGES.en, {
   frpComponentDetails: 'FRP source and complete cleanup', frpComponentDetailsText: 'The pinned client is downloaded from the official fatedier/frp release. DSH Mobile never installs a service or accepts arbitrary FRP configuration.', frpOfficialRelease: 'Official FRP release', purgeFrp: 'Remove FRP component and private configuration', purgeFrpConfirm: 'Stop FRP and remove frpc, the shared token, generated configuration, staging files, and logs owned by DSH Mobile? The VPS is unchanged.', purgingFrp: 'Stopping FRP and removing files managed by DSH Mobile…',
   switchingFrp: 'Switching to self-hosted FRP…', reconnectingFrp: 'Verifying and reconnecting self-hosted FRP…', resetFrpConfirm: 'Disable self-hosted FRP and remove all remote paired devices? The saved VPS settings and server are unchanged.', remoteUnavailableFrp: 'frpc is not installed or the private server settings are incomplete.', remoteStartingFrp: 'Checking the VPS and preparing the restricted FRP channel…', remoteConnectingFrp: 'frpc is running; verifying the public HTTPS endpoint…', frpMissing: 'Install the official frpc component first.', frpInvalid: 'frpc verification failed. Remove it completely and reinstall.', frpConfigMissing: 'Save the self-hosted FRP connection details first.', frpConfigVerifyFailed: 'frpc rejected the generated configuration. Check the server details and token.', frpVhostPublic: 'The VPS plaintext HTTP vhost is publicly reachable. Bind it to 127.0.0.1 and let Caddy provide HTTPS.', frpVhostProbeFailed: 'The VPS address could not be checked. Confirm DNS and retry.', frpLaunchFailed: 'frpc failed to start.', frpTimeout: 'The public endpoint did not become ready. Check frps, Caddy, DNS, and firewall.', frpProxyNameInUse: 'The frps already has a proxy with this installation name in use — usually another DSH computer, or a session that has not expired yet. Disable self-hosted FRP on that machine, or remove that proxy on the frps, then retry.', frpRemotePortInUse: 'Another proxy on the frps already owns this public entry port. Choose a different entry port and retry.', frpProxyStartFailed: 'The frps refused frpc\'s proxy registration. Check its allowPorts, the ports already in use, and its log.', frpDiscoveryMismatch: 'The public domain points to another DSH computer. Check the Caddy and frps mappings.', frpDiscoveryInvalid: 'The public domain did not return a valid DSH Mobile discovery response.', frpStopped: 'The FRP connection stopped.', frpExited: 'frpc exited unexpectedly. Check the VPS configuration and reconnect.',
 })
+Object.assign(MOBILE_CONTROL_MESSAGES.ru, {
+  selfHostedConnections: "Подключение через свой сервер", advanced: "продвинутый", frpName: "Собственный сервер FRP", frpDescription: "Нужен сервер с общедоступным IP. Открывается один выделенный канал для этого шлюза DSH; вы владеете VPS и портом.",
+  prepareFrp: "Настроить собственный сервер FRP", frpStep1Title: "1 · Детали подключения", frpStep1Text: "Укажите адрес VPS, управляющий порт frps, общий токен и публичный HTTPS-адрес.", frpServerAddress: "VPS адрес", frpServerAddressPlaceholder: "frp.example.com", frpServerPort: "Управляющий порт frps", frpToken: "Общий токен", frpTokenPlaceholder: "Не менее 16 персонажей", frpPublicOrigin: "Публичный HTTPS-адрес", frpPublicOriginPlaceholder: "https://dsh.example.com",
+  frpStep2Title: "2 · Подготовьте VPS", frpStep2Text: "Скопируйте шаблон конфигурации frps и Caddy и примените его на своём VPS.", copyServerTemplate: "Шаблон Copy Server", templateCopied: "Сохраните frps.toml и фрагмент Caddy на VPS, а затем добавьте строку импорта в Caddyfile.", templateCopyFailed: "Не смог скопировать шаблон. Проверьте четыре поля выше.", vpsDeployText: "VPS должен быть Ubuntu / Debian с системой; существующая конфигурация сайта Caddy никогда не перезаписывается.", vpsDeployChangesTitle: "Автоматическое развертывание изменит следующее на VPS (ручный шаблон сам по себе ничего не меняет):", vpsDeployChangePackages: "Установите Caddy из своего официального репозитория APT, а также venv Python и Certbot для общедоступных сертификатов IPv4.", vpsDeployChangeServices: "Создайте пользователя dsh-мобильной системы (только если отсутствует, в противном случае сохраняется), конфигурацию и сервис frps, фрагмент Caddy плюс одна линия импорта и ежедневный таймер обновления сертификата.", vpsDeployChangeFirewall: "Откройте порт управления FRP, 80/tcp и 443/tcp в UFW, когда он активен; другие брандмауэры оставлены для настройки.", vpsDeployChangeManual: "Ручное развертывание применяет те же шаги вручную из скопированного шаблона; автоматическое развертывание запускает их через SSH после подтверждения ключей хоста.", vpsSshUser: "Пользователь SSH", vpsSshPort: "Порт SSH", vpsSshKey: "Путь с закрытым ключом (опционально)", vpsSshKeyPlaceholder: "Использует ssh-агент или ~/.ssh/config, когда пуст", vpsDeploy: "Развернуть frps + Caddy", vpsDeploying: "Развертывайтесь на VPS. Продолжайте работать с DSH...", vpsDeploySuccess: "Завершено развертывание VPS. Запуск FRP-соединения для проверки общедоступной конечной точки.", vpsDeployFailed: "VPS Развертывание провалилось: {error}", vpsDeployNotReady: "Сохраните настройки FRP перед развертыванием VPS.", vpsHostKeyFetching: "Чтение ключей хоста VPS...", vpsHostKeyFailed: "Не мог прочитать VPS Ключи хоста: {error}", vpsDeployConfirmWithKeys: "развертывать DSH Mobile frps И Кэдди в этом VPSТолько DSH Mobile Будут созданы сервисные/конфигурационные файлы и правила брандмауэра. Существующая непустая конфигурация Caddy остановит развертывание. Сервер представляет эти клавиши хоста. Подтверждают, что они соответствуют VPS Консоль перед продолжением:\n{fingerprints}", vpsCopyUninstall: "Скачать VPS uninstall script", vpsUninstallScriptCopied: "Сценарий удаления скопирован. Просмотрите его перед запуском с корнем на VPS.", vpsUninstallScriptFailed: "Не удалось создать скрипт удаления: {error}", vpsUninstall: "Удалить DSH Mobile из VPS", vpsUninstallConfirmWithKeys: "Удалить все DSH Mobile Услуги, конфигураций, сертификатов и собственных правил брандмауэра от этого VPSСохраняется ваш собственный контент Caddy и не связанные с ним правила. Сервер представляет эти ключи хоста. Подтвердите, что они совпадают с вашими. VPS Консоль перед продолжением:\n{fingerprints}", vpsUninstalling: "Удаление DSH Mobile из VPS. Продолжайте работать с DSH.", vpsUninstallSuccess: "Завершена очистка VPS. Местные настройки FRP не изменились.", vpsUninstallFailed: "VPS Уборка провалилась: {error}",
+  frpStep3Title: "3 · Подготовьте этот компьютер", frpStep3Text: "Скачайте и проверьте прикрепленного чиновника frpc Клиент только по запросу.", installFrpc: "Установить официальный frpc", frpInstallConfirm: "Загрузите и проверьте официальный frpc 0.70.1 (около {size} MB), извлекая только frpc в частный каталог DSH Mobile?", installingFrp: "Установка официального компонента frpc. Держите DSH в рабочем состоянии до его завершения.", frpNotInstalled: "frpc не установлен. Ничто не загружается, пока вы не нажмете «Установить».", frpUnsupported: "Эта настольная платформа не поддерживается управляемым установщиком frpc.", frpComponentReady: "Официальный сайт frpc {version} проверен.",
+  frpStep4Title: "4 · Проверять и подключать", frpStep4Text: "Плагин запускает только свой DSH HTTP vhost и проверяет, принадлежит ли эта конечная точка этому компьютеру.", frpAppRequirement: "Для пользовательских удаленных доменов требуется приложение Android 0.3.3 или более поздняя версия; локальная сеть, cpolar и Tailscale остаются совместимыми со старыми поддерживаемыми приложениями.", frpSaveConnect: "Сохранить и проверить соединение", frpSavingConnecting: "Сохранение личных настроек и проверка полного пути FRP.", frpConfigurationReady: "Настройки сервера сохраняются. Токен остается только в частном каталоге плагина.", frpConfigurationMissing: "Заполните все поля, скопируйте шаблон VPS, затем сохраните и подключитесь.", frpInputInvalid: "Проверьте адрес VPS, порт, происхождение HTTPS и токен.",
+  frpComponentDetails: "Источник FRP и полная очистка", frpComponentDetailsText: "Прикрепленный клиент скачивается из официального релиза fatedier/frp. DSH Mobile никогда не устанавливает сервис или принимает произвольную конфигурацию FRP.", frpOfficialRelease: "Официальный релиз FRP", purgeFrp: "Удалите компонент FRP и частную конфигурацию", purgeFrpConfirm: "Остановите FRP и удалите frpc, общий токен, сгенерированную конфигурацию, постановочные файлы и журналы, принадлежащие DSH Mobile? VPS не изменился.", purgingFrp: "Остановить FRP и удалить файлы, управляемые DSH Mobile.",
+  switchingFrp: "Переход на самоуправляемый FRP...", reconnectingFrp: "Проверка и повторное подключение самоорганизующихся FRP...", resetFrpConfirm: "Отключите автономный хостинг FRP и удалите все удаленные парные устройства? Сохраненные настройки VPS и сервер не изменились.", remoteUnavailableFrp: "frpc не установлен или настройки частного сервера неполны.", remoteStartingFrp: "Проверка VPS и подготовка ограниченного канала FRP", remoteConnectingFrp: "frpc работает; проверка общедоступной конечной точки HTTPS", frpMissing: "Сначала установите официальный компонент frpc.", frpInvalid: "Проверка frpc не удалась, полностью удалить и переустановить.", frpConfigMissing: "Сначала сохраните данные самообслуживания FRP-соединения.", frpConfigVerifyFailed: "frpc отклонил сгенерированную конфигурацию. Проверьте данные сервера и токен.", frpVhostPublic: "VPS HTTP vhost является общедоступным. Привяжите его к 127.0.0.1 и позвольте Caddy предоставить HTTPS.", frpVhostProbeFailed: "Адрес VPS проверить не удалось. Подтвердите DNS и повторите попытку.", frpLaunchFailed: "frpc Не удалось начать.", frpTimeout: "Общественная конечная точка не была готова. Проверьте frps, Caddy, DNS и брандмауэр.", frpProxyNameInUse: "У frps уже есть прокси с этим именем установки в использовании - обычно другой компьютер DSH или сеанс, который еще не истек. Отключите саморазмещаемый FRP на этой машине или удалите этот прокси на frps, а затем повторите попытку.", frpRemotePortInUse: "Другой прокси на frps уже владеет этим открытым портом входа. Выберите другой порт входа и повторите попытку.", frpProxyStartFailed: "The frps отказываться frpcПроверь его пропуска, порты, которые уже используются, и его журнал.", frpDiscoveryMismatch: "Общественное достояние указывает на другой компьютер DSH. Проверьте отображения Caddy и frps.", frpDiscoveryInvalid: "Общественное достояние не вернуло действительный ответ на обнаружение DSH Mobile.", frpStopped: "Соединение FRP остановилось.", frpExited: "frpc Неожиданно вышел. Проверь VPS Конфигурация и переподключение.",
+})
+
 
 Object.assign(MOBILE_CONTROL_MESSAGES.it, {
   selfHostedConnections: 'Connessione autogestita', advanced: 'Avanzato', frpName: 'FRP autogestito', frpDescription: 'Richiede un server con IP pubblico. Apre un canale dedicato per questo gateway DSH; VPS e porta restano tuoi.',
@@ -262,6 +345,20 @@ Object.assign(MOBILE_CONTROL_MESSAGES.en, {
   irohDescription: 'Peer-to-peer encrypted link with relay fallback. No domain, port or account needed; requires the full Android App.', prepareIroh: 'Prepare iroh', irohInstallNote: 'The Install button downloads the pinned sidecar release (dsh-mobile-iroh 0.1.0-alpha.1, about 15 MB on Windows x64, 24 MB on Linux x64) into the plugin private directory and verifies its SHA-256. An installed companion with a verified copy is reused instead, with no download.', irohComponentNote: 'An installed sidecar is re-verified by SHA-256 on every use. It is not bundled with the plugin package; a companion-provided copy can only be removed by removing the companion.',   irohPhaseNote: 'Experimental connection. Requires the full Android App 0.7.0+ with iroh; the compatibility APK and mobile browsers cannot use it.', irohUnavailable: 'iroh is not ready: no sidecar is installed yet. Install the official component below to download and verify it.', irohInstalledNotReady: 'iroh is installed but not running. Turn on remote access to start it.', irohStarting: 'Resolving the iroh endpoint identity…', irohConnecting: 'Sidecar connected; starting the DSH authentication gateway…', irohCompanionMissing: 'No verified iroh sidecar is available. Use Install official component below; a separate companion plugin is optional.', irohDataDirectoryInvalid: 'Could not prepare the private sidecar directory. Check that DSH can manage its own profile directory, then retry.', irohDataDirectoryInsecure: 'Windows parent folders of the iroh state path must not grant write or replacement rights to other users. Choose a private profile directory or correct the parent ACLs, then retry.', irohSidecarInvalid: 'The installed sidecar failed checksum verification. Reinstall the component.', irohDownloadFailed: 'The sidecar download failed before verification. Check the network and retry.', irohPlatformUnsupported: 'iroh sidecars are published for Windows x64 and Linux x64 only.', irohIdentityFailed: 'Could not read the iroh endpoint identity from the sidecar.', irohLaunchFailed: 'The iroh sidecar failed to start.',
   irohExited: 'The iroh sidecar exited unexpectedly. Reconnect.', irohTimeout: 'Timed out waiting for the iroh sidecar. Reconnect.', irohInstallConfirm: 'Download and verify the pinned iroh sidecar now (about 15 MB on Windows x64, 24 MB on Linux x64)? Nothing else is installed.', installingIroh: 'Downloading and verifying the iroh sidecar…', switchingIroh: 'Switching to iroh…', reconnectingIroh: 'Reconnecting the iroh transport…', resetIrohConfirm: 'Disable the iroh channel? The companion and its pairings stay installed.',
 })
+Object.assign(MOBILE_CONTROL_MESSAGES.ru, {
+  irohName: "iroh (экспериментальный)", irohExperimental: "экспериментальный",
+  irohNotReady: "iroh Сначала запустите канал, затем сгенерируйте код сопряжения.",
+  irohPairingFailed: "Не удалось открыть iroh Воссоедините канал и повторите попытку.",
+  irohPairingTitle: "Сопряжение телефонов (экспериментальное)",
+  generateIrohQr: "генерировать iroh сопряжение QR код",
+  enlargeQr: "Увеличьте QR-код",
+  closeEnlargedQr: "Закройте расширенный QR-код",
+  irohPairingReady: "iroh код сопряжения {code} Живет в течение пяти минут. Просканируйте его. iroh Связывание экрана; открытие другого кода заменяет этот.",
+  irohPairingCopyOnly: "Изображение QR не может быть сгенерировано. Скопируйте ссылку на сопряжение и вставьте ее в экран сопряжения iroh приложения.",
+  irohDescription: "Одноранговая зашифрованная ссылка с резервным ретранслятором. Не требуется домен, порт или учетная запись; требуется полное приложение Android.", prepareIroh: "Подготовьтесь iroh", irohInstallNote: "Кнопка «Установка» скачивает закреплённый релиз коляски (dsh-mobile-iroh 0.1.0-alpha.1, около 15 МБ на Windows x64, 24 МБ на Linux x64) в закрытый каталог плагина и проверяет его SHA-256. Установленный компаньон с проверенной копией вместо этого повторно используется без загрузки.", irohComponentNote: "Установленный коляска повторно проверяется SHA-256 на каждом использовании. Он не упакован с пакетом плагина; копия, предоставленная компаньоном, может быть удалена только путем удаления компаньона.",   irohPhaseNote: "Требуется полное Android-приложение 0.7.0+ с iroh; совместимость APK и мобильных браузеров не позволяет его использовать.", irohUnavailable: "iroh не готов: пока не установлен коляска. Установите официальный компонент ниже, чтобы загрузить и проверить его.", irohInstalledNotReady: "iroh установлен, но не работает. Включите удаленный доступ, чтобы запустить его.", irohStarting: "Разрешая вопрос iroh Идентификация конечной точки...", irohConnecting: "Боковой автомобиль подключен; запуск шлюза аутентификации DSH", irohCompanionMissing: "Недоступен верифицированный iroh sidecar. Используйте официальный компонент Установить ниже; отдельный плагин-компаньон необязателен.", irohDataDirectoryInvalid: "Не удалось подготовить частный каталог коляски. Проверьте, что DSH может управлять собственным каталогом профиля, а затем повторите попытку.", irohDataDirectoryInsecure: "Материнские папки Windows в пути состояния iroh не должны предоставлять права на запись или замену другим пользователям.Выберите каталог частного профиля или исправьте родительские ACL, а затем повторите попытку.", irohSidecarInvalid: "Установленный коляска не прошла проверку контрольной суммы.", irohDownloadFailed: "Загрузка коляски провалилась перед проверкой. Проверьте сеть и повторите попытку.", irohPlatformUnsupported: "Автомобили iroh выпускаются только для Windows x64 и Linux x64.", irohIdentityFailed: "Не мог прочитать iroh Идентификация конечной точки от коляски.", irohLaunchFailed: "The iroh Боковая машина не стартовала.",
+  irohExited: "The iroh Коляска неожиданно вышла.", irohTimeout: "Выжидающий в ожидании iroh Подключайся.", irohInstallConfirm: "Скачайте и проверьте прикрепленную коляску iroh сейчас (около 15 МБ на Windows x64, 24 МБ на Linux x64)?", installingIroh: "Загрузка и проверка коляски iroh...", switchingIroh: "Переключаться на iroh…", reconnectingIroh: "Воссоединяя iroh Транспорт...", resetIrohConfirm: "Инвалидность iroh Канал? Спутник и его пары остаются на месте.",
+})
+
 Object.assign(MOBILE_CONTROL_MESSAGES.it, {
   irohName: 'iroh (Sperimentale)', irohExperimental: 'Sperimentale',
   irohNotReady: 'iroh non è attivo. Avvia il canale e genera di nuovo il codice.',
@@ -303,6 +400,21 @@ Object.assign(MOBILE_CONTROL_MESSAGES.en, {
   diagnosticLabelVersions: 'Version compatibility', diagnosticLabelNetwork: 'Local network adapter', diagnosticLabelLan: 'Local network gateway', diagnosticLabelFirewall: 'Windows Firewall', diagnosticLabelRemote: 'Remote channel', diagnosticLabelPhone: 'Phone network',
   funnelTimeout: 'The Tailscale component timed out while starting. Check the network, then reconnect.',
 })
+Object.assign(MOBILE_CONTROL_MESSAGES.ru, {
+  requestTimeout: "Подтвердите, что DSH все еще работает, а затем попробуйте еще раз.",
+  invalidResponse: "Сервер ответил телом, которое не является действительным JSON. Подтвердите соответствие плагина и версий DSH, а затем перезагрузите страницу.",
+  diagnostics: "Диагностика", openDiagnostics: "Диагностика открытого соединения", back: "Назад", backToMobile: "Вернуться в Мобильный доступ", connectionDiagnostics: "Диагностика соединений",
+  diagnosticsIntro: "Проверьте версии, шлюз, сетевой адаптер, брандмауэр и удаленный канал. Отчет автоматически отредактирован и никогда не читает разговоры или учетные данные.",
+  diagnosticsNotRun: "Еще не проверено", diagnosticsStartHint: "Выберите кнопку ниже, чтобы начать.", diagnosticsIdleMeta: "Ожидание запуска · статус подключения", diagnosticsStart: "Начать проверку", diagnosticsCopy: "Скопировать отчёт без конфиденциальных данных", diagnosticsAdvanced: "Расширенные диагностические детали",
+  diagnosticsComplete: "Проверить полностью", diagnosticsAttention: "Некоторые вещи требуют внимания", diagnosticsProblem: "Обнаружены проблемы подключения", diagnosticsCompleteFallback: "Проверка завершена.",
+  diagnosticStatusOk: "Хорошо.", diagnosticStatusWarning: "Внимание", diagnosticStatusError: "Проблема", diagnosticStatusInfo: "Инфо", diagnosticItems: "{count} предметы", diagnosticCheck: "Проверить", diagnosticAction: "Предлагаемые меры",
+  diagnosticNeedsAction: "Нужны действия", diagnosticDetails: "Проверить детали", diagnosticOther: "Другие проверки", diagnosticNoBlockers: "{count} checks · проблем с блокировкой не обнаружено", diagnosticNeedsCount: "Проверок: {count}. Требуют внимания: {issues}",
+  diagnosticsChecking: "Проверить...", diagnosticsCheckingTitle: "Проверка соединения", diagnosticsCheckingText: "Обычно это занимает несколько секунд. Удалённый канал проводит настоящий тест на доступность.", diagnosticsRunningMeta: "• Держите DSH онлайн",
+  diagnosticsIncomplete: "Проверка не завершена", diagnosticsReadFailed: "Не могу прочитать диагностику {error}", diagnosticsUnavailable: "Диагностическая служба недоступна; попробуйте позже", diagnosticsRetry: "Проверить еще раз", diagnosticsCopied: "Отредактированный отчет скопирован. Вы можете вставить его непосредственно в проблему.", diagnosticsCopyManual: "В доступе к трамплинам было отказано. Подробности расширены для ручного копирования.",
+  diagnosticLabelVersions: "Версия совместимости", diagnosticLabelNetwork: "Адаптер локальной сети", diagnosticLabelLan: "Локальный сетевой шлюз", diagnosticLabelFirewall: "Брандмауэр Windows", diagnosticLabelRemote: "Удаленный канал", diagnosticLabelPhone: "Телефонная сеть",
+  funnelTimeout: "Компонент Tailscale, отсчитанный во время запуска, проверьте сеть, а затем подключитесь.",
+})
+
 Object.assign(MOBILE_CONTROL_MESSAGES.it, {
   requestTimeout: 'Operazione scaduta. Verifica che DSH sia ancora in esecuzione e riprova.',
   invalidResponse: 'Il server ha restituito un contenuto che non è JSON valido. Verifica che le versioni del plugin e di DSH corrispondano, poi ricarica la pagina.',
@@ -328,6 +440,17 @@ Object.assign(MOBILE_CONTROL_MESSAGES.zh, {
 })
 
 export const LOCALIZED_DIAGNOSTIC_COPY = {
+  ru: {
+    versions: "Установка плагина, DSH и минимальные версии приложений для Android.",
+    networkOk: "Доступен настроенный локальный сетевой адаптер.", networkError: "Сохраненный локальный сетевой адаптер недоступен.", networkInfo: "Используется фиксированная конфигурация локальной сети.", networkAction: "Запускайте установку dsh-мобиля снова.",
+    lanOk: "Местный шлюз слушает, и доступно соединение.", lanInfo: "Доступ к локальной сети в настоящее время отключен.", lanAction: "Включите доступ к локальной сети, когда телефон должен подключаться напрямую.",
+    firewallOk: "Включены локальные правила TCP и брандмауэр обнаружения.", firewallWarning: "Полные правила брандмауэра локальной сети не были найдены.", firewallInfo: "Система не позволяла плагину считывать состояние брандмауэра.", firewallAction: "Запустите настройку dsh-mobile в качестве администратора и проверьте правила брандмауэра.",
+    remoteOk: "Удаленный публичный адрес прошел проверку на доступность.", remoteWarning: "Удаленный канал требует внимания или все еще подключается.", remoteError: "Удаленное соединение в настоящее время недоступно.", remoteInfo: "В настоящее время удаленный доступ отключен.", remoteAction: "Вернитесь к удаленному доступу, следуйте инструкциям провайдера и подключитесь снова.",
+    phone: "Компьютер не может определить, изолирует ли маршрутизатор телефон.", phoneAction: "Подтвердите, что телефон и компьютер используют одну и ту же сеть, а затем отключите гостевую сеть или изоляцию AP.",
+    reportTitle: "DSH Mobile Диагностический отчет", generated: "сгенерированный",
+    certificateOk: "Сертификат FRP действителен.", certificateExpiring: "Срок действия сертификата FRP истекает в ближайшее время.", certificateExpired: "Срок действия сертификата FRP истек.", certificateUnknown: "The FRP Свидетельство о въезде читать нельзя.",
+    certificateAction: "Подсоедините канал FRP для перевыпуска сертификата или следуйте прикрепленной записной книжке на VPS.",
+  },
   en: {
     versions: 'Installed plugin, DSH, and minimum Android app versions are shown.',
     networkOk: 'The configured local network adapter is available.', networkError: 'The saved local network adapter is unavailable.', networkInfo: 'A fixed local network configuration is in use.', networkAction: 'Run dsh-mobile setup again.',
@@ -449,6 +572,66 @@ Object.assign(MOBILE_CONTROL_MESSAGES.en, {
   originConfigTargetInvalid: "The saved proxy settings file is not a regular file. Remove it and save the settings again.",
   originControllerUnavailable: "The reverse-proxy provider is not available in this session. Restart DSH and try again.",
 })
+Object.assign(MOBILE_CONTROL_MESSAGES.ru, {
+  selfHostedDescription: "Для вашего собственного сервера или домена. Не зависит от сторонней туннельной службы.",
+  originName: "Собственный обратный прокси",
+  caddyName: "Управляющий Caddy",
+  caddyModePreviewNote: "Форма предварительного просмотра HTTPS отличается от текущего соединения.",
+  originDescription: "У вас уже есть HTTPS домен или обратный прокси (Caddy, Nginx)? DSH На заднем плане.",
+  prepareOrigin: "Подключите обратный прокси HTTPS",
+  originPublicOrigin: "Публичный HTTPS-адрес",
+  originListenHost: "Прослушивание IP (IPv4/IPv6)",
+  originListenPort: "HTTP-порт сервера",
+  originAllowedCidrs: "Разрешенный источник прокси CIDR",
+  originHelp: "Тот же компьютер: используйте 127.0.0.1 или ::1. По всей частной сети используйте частный IPv4 или IPv6 ULA этого компьютера и разрешите прямой источник прокси с /32 или /128 в том же семействе адресов. Это соединение NGINX-to-DSH, а не публичный IP телефона. Отдельные CIDR с пробелами или запятыми.",
+  originWarning: "Держите этот HTTP-бэкэнд закрытым. Никогда не открывайте его или переносите в Интернет. Ваш прокси-сервер должен прекратить HTTPS и сохранить внешний хост, включая его порт и обновления WebSocket.",
+  originSaveStart: "Сохранить и начать backend",
+  originBackendSaved: "Сохраненный HTTP backend (не работает)",
+  originBackendListening: "Прослушивание HTTP backend",
+  originCopyBackend: "Копировать backend адрес",
+  originBackendCopied: "Адрес HTTP скопирован.",
+  originPurge: "Ясные настройки proxy",
+  originHttpsTitle: "Удаленный доступ HTTPS",
+  originHttpsMode: "Обработка HTTPS",
+  caddyModeManaged: "Managed Caddy (плагин обрабатывает HTTPS и сертификаты)",
+  caddyModeExternal: "Я уже запустил свой собственный обратный прокси",
+  caddySectionTitle: "Управлял Caddy Upstream",
+  caddyInstall: "Установка управляемых Caddy",
+  caddyInstallNote: "Загружает прикрепленное ядро Caddy + Tencent Cloud DNS build, опубликованное DSH Mobile, проверяет его размер и SHA-256 и хранит его в частном каталоге плагина.",
+  caddyDomain: "Общественное достояние",
+  caddyDnsProvider: "Поставщик DNS (DNS-01)",
+  caddySecretId: "Идентификатор SecretId в Tencent Cloud",
+  caddySecretKey: "Облако Tencent SecretKey",
+  caddyListenPort: "Локальный порт HTTPS",
+  caddySaveConnect: "Сохранить и начать Кэдди",
+  caddyPurge: "Удалить управляемый Caddy и настройки",
+  caddyReady: "Управляемый Caddy работает, сертификаты выдаются и обновляются автоматически.",
+  originPurgeConfirm: "Остановите этот частный HTTP-бэкэнд и удалите только его настройки обратного прокси? Поддерживаются парные удаленные устройства, доступ к локальной сети и другие провайдеры.",
+  originPurged: "Бэкэнд останавливается и его прокси-настройки очищаются. Сохраняются парные устройства.",
+  originSaving: "Сохранение настроек и запуск частного бэкэнда...",
+  originPurging: "Остановить бэкэнд и очистить его настройки...",
+  originBackendReady: "Слушать Back Listening",
+  originReady: "Частный HTTP-бэкэнд слушает. Публичный HTTPS, его сертификат и подключение к WebSocket не были проверены. Проверьте публичный адрес с вашего телефона, прежде чем полагаться на него.",
+  originUnavailable: "Сначала настройте публичный адрес HTTPS и частный бэкэнд.",
+  originStarting: "Запуск частного HTTP-бэкэнда",
+  switchingOrigin: "Переключение на свой собственный обратный прокси-сервер",
+  reconnectingOrigin: "Перезапуск частного HTTP-бэкэнда",
+  resetOriginConfirm: "Остановите этот бэкэнд и сбросьте удаленное сопряжение? Все парные удаленные устройства должны снова соединяться. Настройки обратного прокси и устройства локальной сети сохранены.",
+  originPublicOriginInvalid: "Введите только общедоступное HTTPS-происхождение, такое как https://phone.example.com:8815; нет пути, запроса, учетных данных или частного адреса.",
+  originListenHostInvalid: "Используйте явную обратную связь / частный IPv4 этого компьютера, ::1 или IPv6 ULA (fc00::/7). Wildcard и публичные адреса не допускаются.",
+  originListenPortInvalid: "Используйте порт с целым числом от 1024 до 65535; нижние порты нуждаются в привилегиях, которых нет у плагина.",
+  originListenPortReserved: "Порт 3443 принадлежит шлюзу LAN и порту 3080 самому DSH, поэтому оба всегда берутся.Выберите другой порт, такой как 3444 или 3445.",
+  originAllowedCidrsInvalid: "Разрешить 1–16 канонических петлевых/частных CIDR в семействе адресов слушателя.Для слушателя частной сети, включите источник прокси-сервера без петлевой обратной связи, предпочтительно IPv4/32 или IPv6/128. Поддержка IPv6::1/128 и ULA (fc00::/7); публичные диапазоны не принимаются.",
+  originSettingsInvalid: "Настройки обратного прокси недействительны. Проверьте четыре поля и сохраните снова.",
+  originConfigMissing: "Сохраните настройки обратного прокси перед началом бэкэнда.",
+  originConfigInvalid: "Сохраненные настройки являются недействительными. Исправьте и сохраните их снова, или очистите только эти настройки.",
+  originPortInUse: "Бэкэнд порт уже используется. Остановите конфликтующего слушателя или выберите другой порт. Обратите внимание, что 3443, 3080 и порт, уже используемый cloudflared Туннель никогда не бывает свободным.",
+  originAddressUnavailable: "Адрес прослушивания недоступен на этом компьютере.Выберите его текущий частный IPv4, ::1 или IPv6 ULA.",
+  originStartFailed: "Частный бэкэнд не мог начаться. Проверьте его адрес, порт, разрешения и местные журналы.",
+  originConfigTargetInvalid: "Сохраненный файл настроек прокси не является обычным файлом. Удалите его и сохраните настройки снова.",
+  originControllerUnavailable: "В этом сеансе недоступен поставщик обратного прокси. Перезагрузите DSH и попробуйте еще раз.",
+})
+
 
 Object.assign(MOBILE_CONTROL_MESSAGES.it, {
   selfHostedDescription: "Per un tuo server o dominio. Non dipende da un servizio tunnel di terze parti.",
@@ -638,6 +821,75 @@ Object.assign(MOBILE_CONTROL_MESSAGES.en, {
   cloudflaredTunnelSettingsInvalid: "The tunnel settings were rejected.",
   cloudflaredTunnelConfigMissing: "Enter the token, hostname, and port to use a named tunnel.",
 })
+Object.assign(MOBILE_CONTROL_MESSAGES.ru, {
+  cloudflaredBadge: "Факультативный счет",
+  cloudflaredDescription: "Бесплатный временный адрес без учетной записи; вход в Cloudflare для фиксированного домена.Устанавливает официальный клиент по требованию.",
+  prepareCloudflared: "Подготовьтесь cloudflared",
+  cloudflaredUnsupported: "Поддерживаются Windows x64, Linux x64/arm64 и macOS x64/arm64.",
+  cloudflaredNotInstalled: "Не установлена. Фиксированная версия скачивается с официального cloudflared Страница выпуска только после того, как вы нажмете кнопку ниже.",
+  cloudflaredReady: "Официальный компонент {version} Готово.",
+  cloudflaredQuickNote: "Быстрый туннель: учетная запись Cloudflare не требуется, но Cloudflare позиционирует быстрые туннели для тестирования - адрес является случайным, ограничен по скорости и не несет никакой гарантии безотказной работы.",
+  cloudflaredNamedNote: "Назван туннель: сохраненное имя хоста остается неизменным при перезапуске и перезапуске Cloudflare направляет его в местный передний порт. Токен разъема хранится только в DSH Mobile Частный справочник, переданный cloudflared через окружение, а не командную строку, и никогда не отображается снова.",
+  cloudflaredComponentNote: "Скачано с официального cloudflared Страница выпуска и верифицируется в фиксированной версии только после выбора Установки. Клиент запускается с отключенными автоматическими обновлениями. Он не добавляет системный сервис, элемент запуска, запись в реестр или запись PATH.",
+  installConfirmCloudflared: "Скачать и проверить cloudflared {size} с официальной страницы релиза и хранить его только в DSH Mobile Нет добавления системного сервиса, входа в PATH / реестр или элемента запуска.",
+  installingCloudflared: "Установка официального cloudflared Компонент. DSH Бегите, пока не закончите.",
+  purgeCloudflared: "Полностью удалить cloudflared компонент",
+  purgeCloudflaredConfirm: "Полностью удалить cloudflared компонент и его журналы времени выполнения из DSH Mobile Доступ к локальной сети. DSH Данные и другие системные программы не затронуты.",
+  purgingCloudflared: "Остановка канала и удаление cloudflared Файлы, управляемые DSH Mobile…",
+  switchingCloudflared: "Переключаться на cloudflared…",
+  reconnectingCloudflared: "Воссоединение cloudflared…",
+  remoteUnavailableCloudflared: "cloudflared не установлена.",
+  remoteStartingCloudflared: "Начало cloudflared разъем...",
+  remoteConnectingCloudflared: "Запуск шлюза аутентификации DSH...",
+  resetCloudflaredConfirm: "Инвалидность cloudflared Удаленный канал и удалить все удаленные сопряженные устройства?Установленный компонент и конфигурация локальной сети неизменны.",
+  cloudflaredMissing: "Официальный cloudflared Компонент не установлен. Завершите этапы подготовки выше.",
+  cloudflaredInvalid: "cloudflared Проверка компонентов не удалась, полностью удалить и переустановить.",
+  cloudflaredPortUnavailable: "Не смог выделить местный порт удаленного шлюза.",
+  cloudflaredLaunchFailed: "The cloudflared Клиенту не удалось начать.",
+  cloudflaredTimeout: "Приостановился в ожидании, когда туннель станет доступным.",
+  cloudflaredStopped: "The cloudflared Связь прекратилась.",
+  cloudflaredExited: "The cloudflared Подключение неожиданно прекратилось.",
+  cloudflaredOutputInvalid: "cloudflared Возвращается непризнанный статус.",
+  cloudflaredOriginInvalid: "Публичный адрес, возвращенный cloudflared Неудачная проверка.",
+  cloudflaredComponentUnsupported: "Эта конструкция не может управлять cloudflared компонент.",
+  cloudflaredDownloadHashMismatch: "Загруженный cloudflared Проверка SHA-256 не удалась.",
+  cloudflaredDownloadSizeMismatch: "Загруженный cloudflared - Не размер прикола, а повторная установка.",
+  cloudflaredDownloadRedirectMissing: "Страница загрузки перестала перенаправляться на актив выпуска.Позднее повторите или установите с официальной страницы вручную.",
+  cloudflaredDownloadRedirectInvalid: "Перенаправление загрузки не указывало на актив релиза GitHub, поэтому было отказано.",
+  cloudflaredDownloadRedirectRejected: "В перенаправлении загрузки было отказано политикой.Позже повторите или установите с официальной страницы вручную.",
+  cloudflaredExecutableHashMismatch: "установленный cloudflared Больше не соответствует проверенной сборке. Удалите ее полностью и установите снова.",
+  cloudflaredPortReservationFailed: "Не смог зарезервировать местный порт для туннеля.",
+  cloudflaredTunnelTargetInvalid: "Сохраненная конфигурация туннеля не является обычным файлом. Удалите его и сохраните настройки снова.",
+  cloudflaredTunnelSaving: "Сохранение настроек туннеля и восстановление соединения cloudflared…",
+  cloudflaredTunnelForgetting: "Удаление сохраненного туннеля...",
+  cloudflaredTunnelTitle: "Тип туннеля",
+  cloudflaredTunnelQuick: "Быстро!",
+  cloudflaredTunnelNamed: "Названный",
+  cloudflaredTunnelQuickHint: "Нет аккаунта: cloudflared Выделяет случайный адрес на каждом старте.",
+  cloudflaredTunnelNamedHint: "Использует токен учетной записи Cloudflare и сохраняет один адрес, который выживает при перезагрузке.",
+  cloudflaredTunnelHostname: "Общественное имя",
+  cloudflaredTunnelHostnamePlaceholder: "dsh.example.com",
+  cloudflaredTunnelPort: "Местный форвардный порт",
+  cloudflaredTunnelToken: "Токен коннектора",
+  cloudflaredTunnelTokenPlaceholder: "Вставить жетон туннеля с приборной панели Cloudflare",
+  cloudflaredTunnelTokenSaved: "Токен сохранен, оставьте его пустым.",
+  cloudflaredTunnelSave: "Сохранить и подключиться",
+  cloudflaredTunnelSaveQuick: "Переключитесь на быстрый туннель",
+  cloudflaredTunnelConfigured: "Названный туннель сконфигурирован: {hostname} достигает этого компьютера на 127.0.0.1:{port}.",
+  cloudflaredTunnelMissing: "Названного туннеля пока не настроено.",
+  cloudflaredTunnelHint: "В панели инструментов Cloudflare создайте туннель, затем установите его публичное имя хоста на http://127.0.0.1:{port}. Токен хранится только в частном каталоге DSH Mobile и больше никогда не отображается после сохранения.",
+  cloudflaredTunnelForget: "Удалить сохраненный токен",
+  cloudflaredTunnelForgetConfirm: "Удалите сохраненный жетон туннеля, остановите cloudflared Ничего не подключается само по себе: переключите канал обратно. Туннель все еще существует в вашем Cloudflare Аккаунт и его публичное имя хоста неизменны.",
+  cloudflaredTunnelInvalid: "Сохраненная конфигурация с именем туннеля нечитаема; провайдер использует быстрый туннель. Сохраните настройки снова.",
+  cloudflaredTunnelPortUnavailable: "Настроенный локальный передний порт недоступен. Cloudflare направляет общедоступное имя хоста в этот точный порт, поэтому освободите его или выберите другой.",
+  cloudflaredTunnelHostnameInvalid: "Введите общедоступное имя хоста под доменом в этой учетной записи Cloudflare, например dsh.example.com.",
+  cloudflaredTunnelPortInvalid: "Введите передний порт между 1024 и 65535.",
+  cloudflaredTunnelPortReserved: "Порт 3443 зарезервирован для шлюза DSH Mobile LAN и всегда занят.Выберите другой порт, такой как 3444 или 3445.",
+  cloudflaredTunnelTokenInvalid: "Это не похоже на туннельный токен. Скопируйте весь токен с панели инструментов Cloudflare.",
+  cloudflaredTunnelSettingsInvalid: "Настройки туннеля были отклонены.",
+  cloudflaredTunnelConfigMissing: "Введите токен, имя хоста и порт, чтобы использовать названный туннель.",
+})
+
 
 Object.assign(MOBILE_CONTROL_MESSAGES.it, {
   cloudflaredBadge: "Account facoltativo",
@@ -779,6 +1031,7 @@ Object.assign(MOBILE_CONTROL_MESSAGES.zh, {
 
 /** Measurement boundaries shared by diagnostic cards and copied reports. */
 export const DIAGNOSTIC_SCOPE_MESSAGES = {
+  ru: { scripts: "Сценарии страниц", configuration: "конфигурация", computer: "Компьютерная проверка", phone: "Телефон не тестируется", versions: "Версия информации", provider: "Местный канал", dns: "Система DNS", coverage: "Проверки только на стороне компьютера. Доступность телефона, аутентифицированные страницы, ресурсы и WebSockets не были проверены." },
   en: { scripts: 'Page scripts', configuration: 'Configuration', computer: 'Computer-side check', phone: 'Phone not tested', versions: 'Version information', provider: 'Local channel state', dns: 'System DNS', coverage: 'Computer-side checks only. Phone reachability, authenticated pages, resources and WebSockets have not been verified.' },
   it: { scripts: 'Script pagina', configuration: 'Configurazione', computer: 'Controllo dal computer', phone: 'Telefono non verificato', versions: 'Informazioni versioni', provider: 'Stato del canale locale', dns: 'DNS di sistema', coverage: 'Solo controlli dal computer. Raggiungibilità dal telefono, pagine autenticate, risorse e WebSocket non verificati.' },
   zh: { scripts: '页面脚本', configuration: '配置信息', computer: '电脑侧检查', phone: '手机尚未验证', versions: '版本信息', provider: '本机通道状态', dns: '系统 DNS', coverage: '仅为电脑侧检查。手机可达性、认证页面、资源加载和 WebSocket 尚未验证。' },
@@ -786,6 +1039,23 @@ export const DIAGNOSTIC_SCOPE_MESSAGES = {
 
 /** Fixed DNS/egress observations never imply acceptance from another network. */
 export const DIAGNOSTIC_NETWORK_MESSAGES = {
+  ru: {
+    'remote-service-ready': ["{provider} сообщает о готовности местного компонента; общественные и телефонные пути не проверяются.", ""],
+    'plugin-inspection-unavailable': ["Активные скрипты страниц не могут быть проверены; отсутствие конкурирующего удаленного канала не проверяется.", "Другие сетевые проверки независимы.Сохранить среду воспроизведения и проверить соответствующие плагины."],
+    'firewall-inactive': ["LAN отключена, поэтому правила брандмауэра не были проверены. Это не оценивает удаленный вход.", "Сначала включите локальную сеть, если вам нужно локальное соединение."],
+    'remote-tailnet-shadowed': ["Система DNS вернула адреса tailnet, и этот слушатель только в Funnel не принимает этот частный путь. Эта неудачная проверка не устанавливает публичное отключение Funnel.", "Если вы добровольно меняете устройство DNS для теста, рассмотрите другие частные службы и восстановите его после этого."],
+    'dns-public': ["Система DNS возвращала обычные результаты по общедоступным адресам. Это не устанавливает достижимость конечных точек.", ""],
+    'dns-tailnet': ["Система DNS возвращала адреса сетки, а не поддельный IP. Это частный путь, а не независимый тест на общественные пути.", ""],
+    'dns-fake-ip': ["Система DNS возвращала поддельные IP-адреса; прокси-маршрутизация может повлиять на измерение.", "Проверьте политику DNS/маршрутизации без отключения проверки сертификата."],
+    'dns-private': ["Система DNS возвращала частные/местные адреса. Это не проверяет проникновение общественности.", ""],
+    'dns-mixed': ["Система DNS возвращала смешанные категории адресов; не приписывайте сбой одному частному адресу.", "Сравните реальные маршруты и адреса семей."],
+    'dns-unknown': ["Контекст системы DNS был недоступен или превышал ее бюджет ожидания; ни одна общедоступная служба DNS не была запрошена.", ""],
+    'remote-dns-failed': ["Компьютерный зонд конечной точки не сработал во время разрешения имени.", "Проверьте систему DNS; сравните с телефонной сетью, прежде чем судить о государственной службе."],
+    'remote-connect-failed': ["Компьютерный зонд конечной точки не мог установить или сохранить свое соединение.", "Проверьте текущий маршрут и вход, затем сравните с другой сетью."],
+    'remote-tls-failed': ["Проверка личности TLS на компьютерной стороне не удалась.", "Проверьте сертификат, имя хоста и маршрут прокси. Не отключайте проверку сертификата."],
+    'remote-probe-timeout': ["Компьютерный зонд на стороне конечной точки превысил свой бюджет ожидания.", "Тайм-аут не определяет место неудачного прыжка. Сравните с другой сетью."],
+    'remote-http-failed': ["Компьютер достиг конечной точки HTTP, но не получил успешного состояния здоровья.", "Проверьте маршрут проникновения и политику доступа провайдера; никакие учетные данные не были отправлены этим зондом."],
+  },
   en: {
     'remote-service-ready': ['{provider} reports its local component ready; public and phone paths are not verified.', ''],
     'plugin-inspection-unavailable': ['Active page scripts could not be inspected; absence of a competing remote channel is unverified.', 'Other network checks are independent. Keep the reproduction environment and inspect the relevant plugins.'],
@@ -840,6 +1110,31 @@ export const DIAGNOSTIC_NETWORK_MESSAGES = {
 } as const
 
 export const DIAGNOSTIC_REASON_MESSAGES = {
+  ru: {
+    'lan-setup-required': ["Создание локальной сети не завершено.", "Вернитесь в локальную сеть и выберите сеть для завершения настройки."],
+    'versions-current': ["Установка плагина, DSH и минимальные версии приложений для Android.", ""],
+    'network-unavailable': ["Сохраненный локальный сетевой адаптер недоступен.", "Запускайте установку dsh-мобиля снова."],
+    'network-interface': ["Использование сетевого интерфейса {interfaceName}.", ""],
+    'network-fixed': ["Используется фиксированная конфигурация локальной сети.", ""],
+    'lan-ready': ["Компьютерный шлюз слушает на {endpointSuffix}; доступность телефона не проверена.", ""],
+    'lan-off': ["Доступ к локальной сети в настоящее время отключен.", "Включите доступ к локальной сети, когда телефон должен подключаться напрямую."],
+    'firewall-ready': ["Найдены локальные правила TCP/discovery, которые не доказывают, что телефонный маршрут разрешен.", ""],
+    'firewall-missing': ["Полные правила брандмауэра локальной сети не были найдены.", "Запустите настройку dsh-mobile в качестве администратора и проверьте правила брандмауэра."],
+    'firewall-unknown': ["Система не позволяла плагину считывать состояние брандмауэра.", "Если телефон не может найти этот компьютер, запустите настройку администратора."],
+    'remote-off': ["Удаленный доступ через {provider} В настоящее время выключен.", ""],
+    'remote-origin-ready': ["Частный HTTP-бэкэнд слушается; публичный HTTPS не проверяется.", "Проверьте свой обратный прокси-сервер, публичный сертификат, внешний хост, включая порт и WebSocket Доступ по телефону. Держите HTTP Приватный бэкэнд."],
+    'remote-ready': ["Компьютерная сторона HTTP достигнутый {provider} конечная точка {endpointSuffix} примерно {latencyMs} ms; телефон и независимая досягаемость на общественном пути не проверяются.", ""],
+    'remote-ready-via-proxy': ["Компьютер достиг конечной точки {provider} {endpointSuffix} через свой настроенный прокси-сервер примерно в {latencyMs} ms; доступность телефона не проверяется.", "Проверьте соединение из сети телефона."],
+    'remote-rate-limited': ["{provider} конечная точка {endpointSuffix} достижима, но при этом проверка соблюдается ограничение скорости.", "Попробуйте позже; старые сессии загружаются по требованию, чтобы уменьшить трафик."],
+    'remote-rate-limited-via-proxy': ["Компьютер достиг конечной точки {provider} {endpointSuffix} через свой прокси-сервер, но скорость обслуживания ограничивала эту проверку; доступность телефона не проверяется.", "Попробуйте еще раз и протестируйте телефонную сеть."],
+    'remote-fake-ip': ["Система DNS вернула поддельные IP-адреса, и компьютерный зонд не сработал; это не доказывает публичного сбоя.", "Проверьте маршрутизацию DNS/прокси и сравните другую сеть без отключения проверки сертификата."],
+    'remote-unreachable': ["Компьютерный зонд конечной точки {provider} {endpointSuffix} не сработал; это не устанавливает отказ от других сетей.", "Сравните DNS, маршрутизацию, TLS и вход из телефонной сети перед повторным подключением."],
+    'remote-needs-login': ["Tailscale ждет завершения входа.", "Вернитесь к удаленному доступу и продолжайте вход."],
+    'remote-connecting': ["The {provider} Удаленный канал продолжает подключаться.", "Подождите немного, затем проверьте еще раз."],
+    'remote-controller-error': ["Контроллер {provider} сообщает {controllerCode}.", "Вернитесь к удаленному доступу и переподключитесь."],
+    'competing-remote-channel': ["Другой удаленный плагин впрыскивает свой собственный канал запроса; телефон может показывать экран сопряжения этого плагина.", "Выключите удаленный доступ dsh-remote-web-ui на компьютере, обновите и соедините с помощью текущего QR-кода DSH Mobile. Не смешивайте парные коды."],
+    'phone-network-unknown': ["Телефонная сеть, парная страница, ресурсы и WebSocket не были протестированы этим компьютером.", "Тестирование по текущей телефонной сети; запись неудачного этапа без обмена секретами."],
+  },
   en: {
     'lan-setup-required': ['Local network setup has not been completed.', 'Return to Local network and choose a network to finish setup.'],
     'versions-current': ['Installed plugin, DSH, and minimum Android app versions are shown.', ''],
@@ -941,6 +1236,30 @@ Object.assign(MOBILE_CONTROL_MESSAGES.en, {
   frpAttachToken: 'Copy frpc.toml with token', frpAttachTokenCopied: 'The plaintext frpc.toml is copied. It contains the shared token and stays in the clipboard until you clear it — do not paste it anywhere public.', frpAttachTokenFailed: 'Could not copy the frpc.toml with its token: {error}',
   frpAttachTokenReenter: 'Re-enter the shared token first. The plugin never returns a saved token to this page.', frpStep2TitleAttach: '2 · Check your VPS', frpStep2TextAttach: 'Check your existing frps and copy a VPS checklist; the plugin does not change the server.', frpStep4TextAttach: 'Save the local client configuration and verify that the public endpoint reaches this computer.', frpAppRequirementSelfSigned: 'Self-signed ingress requires an Android app that can pin a remote CA. Older apps without this feature cannot use this entry.', frpConfigurationMissingAttach: 'Enter your existing frps details, install frpc locally, then save and verify the connection.', purgeFrpConfirmSelfSigned: 'Stop FRP and delete its local frpc, token, configuration, certificates, private keys, identity record, staging files, and logs? Every phone paired through this self-signed entry must be paired again. Your VPS is unchanged.',
 })
+Object.assign(MOBILE_CONTROL_MESSAGES.ru, {
+  frpMode: "Режим обеспечения", frpModeDeploy: "Развернуть frps на VPS", frpModeAttach: "Подключиться к существующему frps (без SSH и изменений на VPS)",
+  frpModeHint: "В этом режиме плагин управляет клиентом frpc и выбранными локальными сертификатами. Настройку и перезапуск серверного frps выполняет администратор.",
+  frpEntryTls: "Сертификат точки входа", frpEntryTlsPublic: "Сертификат общедоступного центра сертификации (Caddy, рекомендуется)", frpEntryTlsSelfSigned: "Самоподписанный пропуск (без публичного сертификата)",
+  frpVhostHttpPort: "HTTP-порт виртуального хоста frps", frpVhostHttpPortHint: "HTTP-порт виртуального хоста frps, привязанный к локальному интерфейсу. В шаблоне используется порт 7080.",
+  frpPublicPort: "Публичный порт подключения", frpPublicPortHint: "Raw TCP прокси порт используется в качестве публичного HTTPS входа (по умолчанию 33080, никогда 3080/3443/3444).",
+  frpUser: "frpc user (необязательно)", frpUserPlaceholder: "myfrpuser",
+  funnelListenerReady: "Воронка слушает. Проверяйте общественный доступ из сети за пределами этой сети.",
+  macosFolderHelpTitle: "Перед тем, как покинуть Mac",
+  macosFolderHelpNote: "Откройте папку рабочего пространства, которую вы планируете использовать в DSH на этом Mac, и отвечайте на любую подсказку macOS. В настройках системы → Конфиденциальность и безопасность → Файлы и папки разрешайте только те места, которые вам нужны. Если открываете папку удаленно, проверьте этот Mac на ожидающую подсказку перед изменением сопряжения.",
+  frpUserHint: "Дополнительное поле пользователя общих служб frps: прокси регистрируется как user.proxyName. Оставьте пустой, чтобы опустить его.",
+  frpUserInvalid: "Пользователь должен быть 1-128 букв, цифр, точек, подчеркиваний или дефисов.",
+  frpAttachPlan: "Копировать приложение Runbook", frpAttachPlanCopied: "Прикрепить рунбуки скопированы: локальный frpc.toml плюс контрольный список VPS.", frpAttachPlanFailed: "Не удалось построить прикрепленную рунопись: {error}",
+  frpAttachCertOk: "Сертификат въезда, действительный для {days} Больше дней; плагин проверяет, нуждается ли его лист в обновлении.", frpAttachCertExpiring: "Срок действия сертификата Ingress истекает в {days} Дни; плагин будет пытаться обновить лист под существующим CA.", frpAttachCertExpired: "Срок действия сертификата истек. Воссоедините и проверьте ошибку сертификата.", frpAttachCertUnknown: "Сертификат входа отсутствует или нечитаем. Проверьте ошибку сертификата перед повторным подключением.",
+  frpAttachCaOk: "Входящий CA действителен для {days} Больше дней.", frpAttachCaExpiring: "Ingress CA истекает в {days} Замена потребует повторного подключения каждого телефона.",
+  frpAttachSelfCheck: "Проверить себя", frpAttachFrpsReachable: "Управляющий TCP-порт frps доступен", frpAttachFrpsUnreachable: "Управляющий TCP-порт frps недоступен", frpAttachEntryReachable: "общедоступный вход в порт TCP (идентичность не проверяется)", frpAttachEntryUnreachable: "Открытый вход TCP порт недосягаем",
+  frpAttachModeRequiresVhostPort: "Режим Attach нуждается в реальном vhostHTTPPort ваших frps; плагин не будет угадывать 7080.", frpAttachCertUnknownError: "Самоподписанный входящий сертификат отсутствует или нечитаем; проверьте локальные файлы сертификата перед повторным подключением.", frpEntryTlsInvalid: "Этот режим сертификата входа не может быть обеспечен выбранным режимом.",
+  frpSelfSignedRequiresPublicIpv4: "Самоподписанный TCP-вход требует публичного IPv4-адреса. Используйте для домена запись public-CA HTTPS.", frpIngressCaExpired: "Местный входной ЦА истек. Удалите компонент FRP с этой панели, настройте его снова и перемотай каждый телефон.", frpIngressCaInvalid: "Проверяйте файлы; если восстанавливаете их, используйте FRP-очистку этой панели и повторно ремонтируйте каждый телефон.", frpIngressCaChanged: "Входящий CA отличается от сохраненного отпечатка пальца, поэтому канал остановился. Проверяйте файлы; если его перестроить, очистите FRP и перепарируйте каждый телефон.", frpIngressRenewalFailed: "Проверить файлы сертификата FRP и восстановить соединение; не заменяйте CA молча.",
+  frpAttachStepWriteSnippet: "Создайте сниппет Caddy", frpAttachStepAddImport: "Добавить линию импорта и перезагрузить Caddy", frpAttachStepIssueCert: "Выдача сертификата public-IP", frpAttachStepCertTimer: "Подтвердите время обновления", frpAttachStepVerifyHttps: "Проверить вход HTTPS",
+  frpAttachStepOpenPort: "Открыть общественный входной порт", frpAttachStepVerifyFrps: "Подтвердите свою frps Готово.", frpAttachStepVerifyEntry: "Проверить, чтобы туннель заканчивался",
+  frpAttachToken: "Скопировать frpc.toml с токеном", frpAttachTokenCopied: "Файл frpc.toml скопирован в буфер обмена в открытом виде. Он содержит общий токен. Очистите буфер после использования и не публикуйте его содержимое.", frpAttachTokenFailed: "Не удалось скопировать frpc.toml со своим токеном: {error}",
+  frpAttachTokenReenter: "Сначала введите общий токен. Плагин никогда не возвращает сохраненный маркер на эту страницу.", frpStep2TitleAttach: "2 · Проверьте VPS", frpStep2TextAttach: "Проверьте существующие frps и скопируйте контрольный список VPS; плагин не меняет сервер.", frpStep4TextAttach: "Сохраните локальную конфигурацию клиента и убедитесь, что общедоступная конечная точка достигает этого компьютера.", frpAppRequirementSelfSigned: "Самоподписанный вход требует приложения Android, которое может прикрепить удаленный CA. Старые приложения без этой функции не могут использовать эту запись.", frpConfigurationMissingAttach: "Укажите параметры существующего frps, установите клиент frpc на компьютер, сохраните настройки и проверьте соединение.", purgeFrpConfirmSelfSigned: "Остановите FRP и удалите его локальный frpc, токен, конфигурацию, сертификаты, приватные ключи, идентификационную запись, промежуточные файлы и журналы? Каждый телефон, спаренный через эту самоподписанную запись, должен быть снова спарен. Ваш VPS не изменился.",
+})
+
 Object.assign(MOBILE_CONTROL_MESSAGES.it, {
   frpMode: 'Modalità di provisioning', frpModeDeploy: 'Installa frps qui (gestito)', frpModeAttach: 'Usa il mio frps esistente (niente SSH, nessuna modifica)',
   frpModeHint: 'La modalità attach gestisce frpc e, se scelti, i certificati locali. Non installa, modifica o riavvia il tuo frps.',
@@ -1003,6 +1322,14 @@ Object.assign(MOBILE_CONTROL_MESSAGES.en, {
   macPermissionOpen: 'Open System Settings',
   macPermissionDismiss: 'Got it',
 })
+Object.assign(MOBILE_CONTROL_MESSAGES.ru, {
+  macPermissionTitle: "Полный доступ к диску включен",
+  macPermissionSummary: "С его включенным удаленным использованием не будут подниматься диалоги авторизации папок, и соединение не будет останавливаться на них.",
+  macPermissionSteps: "Настройки системы → Конфиденциальность и безопасность → Полный доступ к дискам → включите DeepSeek Harness",
+  macPermissionOpen: "Открытые системные настройки",
+  macPermissionDismiss: "Понял.",
+})
+
 
 Object.assign(MOBILE_CONTROL_MESSAGES.it, {
   macPermissionTitle: 'Verifica che l’accesso completo al disco sia attivo',
